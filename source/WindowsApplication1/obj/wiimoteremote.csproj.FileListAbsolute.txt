@@ -1,0 +1,3 @@
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.exe.config
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.exe
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.pdb
