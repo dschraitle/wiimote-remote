@@ -97,17 +97,21 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="WiimoteLib\DataTypes.cs" />
-    <Compile Include="WiimoteLib\Events.cs" />
-    <Compile Include="WiimoteLib\HIDImports.cs" />
-    <Compile Include="WiimoteLib\Wiimote.cs" />
-    <Compile Include="WiimoteLib\WiimoteCollection.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="WiimoteLib\docs\copyright.txt" />
-    <Content Include="WiimoteLib\docs\license.txt" />
-    <Content Include="WiimoteLib\docs\readme.txt" />
-    <Content Include="WiimoteLib\WiimoteLib.csproj" />
+    <Compile Include="WiimoteLib\DataTypes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WiimoteLib\Events.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WiimoteLib\HIDImports.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WiimoteLib\Wiimote.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WiimoteLib\WiimoteCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
@@ -125,6 +129,12 @@
       <ProductName>.NET Framework 2.0</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WiimoteLib\docs\copyright.txt" />
+    <Content Include="WiimoteLib\docs\license.txt" />
+    <Content Include="WiimoteLib\docs\readme.txt" />
+    <Content Include="WiimoteLib\WiimoteLib.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="WiimoteLib\Properties\" />

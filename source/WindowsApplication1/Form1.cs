@@ -24,7 +24,6 @@ namespace wiimoteremote
     public partial class Form1 : Form
     {
         Wiimote wm = new Wiimote();
-
         #region constants
         //declare consts for mouse messages
         public const int INPUT_MOUSE = 0;
@@ -254,6 +253,11 @@ namespace wiimoteremote
         int[] prevselindex;
         ComboBox[] boxes;
         bool start = true;
+        bool nunchuk = false;
+        bool mouse = false;
+        int speed;
+        int mouseclickd = MOUSEEVENTF_LEFTDOWN;
+        int mouseclicku = MOUSEEVENTF_LEFTUP;
 
         public Form1()
         {
@@ -290,11 +294,20 @@ namespace wiimoteremote
             for (int i = 0; i <= NUMBOXES-1; i++) boxes[i].SelectedIndex = saveo[i];
 
             wm.WiimoteChanged += wm_WiimoteChanged;
+            wm.WiimoteExtensionChanged += wm_ExtensionChanged;
             try
             {
                 wm.Connect();
                 wm.SetLEDs(true, false, false, false);
-                wm.SetReportType(InputReport.Buttons, true);
+                if (wm.WiimoteState.ExtensionType.ToString() == "Nunchuk")
+                {
+
+                    wm.SetReportType(InputReport.ButtonsExtension, true);
+                    nunchuk = true;
+                    mouse = true;
+                }
+                else
+                    wm.SetReportType(InputReport.Buttons, true);
                 connectbox.Text = "connected";
                 connectbutton.Enabled = false;
             }
@@ -303,7 +316,6 @@ namespace wiimoteremote
                 MessageBox.Show("Exception: " + x.Message);
                 connectbox.Text = "not connected";
             }
-
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
@@ -322,6 +334,30 @@ namespace wiimoteremote
         void wm_WiimoteChanged(object sender, WiimoteChangedEventArgs args)
         {
             WiimoteState ws = args.WiimoteState;
+
+            if (mouse)
+            {
+                double doublex = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.X * (int)speedbox.Value), 0);
+                double doubley = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.Y * -1 * (int)speedbox.Value), 0);
+                int X = int.Parse(doublex.ToString());
+                int Y = int.Parse(doubley.ToString());
+                Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y + Y);
+
+                if (!lastWiiState.NunchukState.Z && ws.NunchukState.Z)
+                    mouse_event(mouseclickd, X, Y, 0, 0);
+                if (lastWiiState.NunchukState.Z && !ws.NunchukState.Z)
+                    mouse_event(mouseclicku, X, Y, 0, 0);
+                lastWiiState.NunchukState.Z = ws.NunchukState.Z;
+
+                if (!lastWiiState.NunchukState.C && ws.NunchukState.C)
+                {
+                    speed = (int)speedbox.Value;
+                    speedbox.Value = speedbox.Value / 3;
+                }
+                if (lastWiiState.NunchukState.C && !ws.NunchukState.C)
+                    speedbox.Value = speed;
+                lastWiiState.NunchukState.C = ws.NunchukState.C;
+            }
 
             if (!lastWiiState.ButtonState.A && ws.ButtonState.A)
                 translate(boxa.SelectedIndex, true, 1);
@@ -393,6 +429,24 @@ namespace wiimoteremote
             float f = (((100.0f * 48.0f * (float)(ws.Battery / 48.0f))) / 192.0f);
             BeginInvoke((MethodInvoker)delegate() { lblBattery.Text = f.ToString("F"); });
             BeginInvoke((MethodInvoker)delegate() { pbBattery.Value = (int)f; });
+        }
+
+        void wm_ExtensionChanged(object sender, WiimoteExtensionChangedEventArgs args)
+        {
+            //if extension attached, enable it
+            if (args.Inserted)
+                wm.SetReportType(InputReport.ButtonsExtension, true);
+            else
+            {
+                wm.SetReportType(InputReport.Buttons, true);
+                nunchuk = false;
+            }
+            if (wm.WiimoteState.ExtensionType.ToString() == "Nunchuk")
+            {
+                nunchuk = true;
+                mouse = true;
+            }
+            label1.Text = wm.WiimoteState.ExtensionType.ToString();
         }
 
         void translate(int i, bool down, int button)

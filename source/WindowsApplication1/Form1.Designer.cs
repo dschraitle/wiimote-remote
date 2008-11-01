@@ -66,9 +66,12 @@ namespace wiimoteremote
             this.lblBattery = new System.Windows.Forms.Label();
             this.pbBattery = new System.Windows.Forms.ProgressBar();
             this.label13 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.speedbox = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.speedbox)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -442,11 +445,34 @@ namespace wiimoteremote
             this.label13.TabIndex = 42;
             this.label13.Text = "Battery:";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(123, 351);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 43;
+            this.label1.Text = "label1";
+            // 
+            // speedbox
+            // 
+            this.speedbox.Location = new System.Drawing.Point(252, 338);
+            this.speedbox.Name = "speedbox";
+            this.speedbox.Size = new System.Drawing.Size(46, 20);
+            this.speedbox.TabIndex = 44;
+            this.speedbox.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 400);
+            this.Controls.Add(this.speedbox);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.pbBattery);
             this.Controls.Add(this.lblBattery);
@@ -482,12 +508,13 @@ namespace wiimoteremote
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Wiimote Remote";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.speedbox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -532,6 +559,8 @@ namespace wiimoteremote
         private System.Windows.Forms.Label lblBattery;
         private System.Windows.Forms.ProgressBar pbBattery;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown speedbox;
 
 
     }
