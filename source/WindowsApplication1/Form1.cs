@@ -521,8 +521,9 @@ namespace wiimoteremote
                 if (down) keybd_event(VK_LBUTTON, 0x45, 0, 0);
                 else keybd_event(VK_LBUTTON, 0x45, KEYEVENTF_KEYUP, 0);}
             if (i == 20){
-                if (down) keybd_event(VK_RBUTTON, 0x45, 0, 0);
-                else keybd_event(VK_RBUTTON, 0x45, KEYEVENTF_KEYUP, 0);}
+                if (down) setclick(MOUSEEVENTF_RIGHTDOWN, MOUSEEVENTF_RIGHTUP);
+                else setclick(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP);
+            }
             if (i == 21){
                 if (down){
                     keybd_event(VK_CONTROL, 0x45, 0, 0);
@@ -631,6 +632,12 @@ namespace wiimoteremote
             }
 
 
+        }
+
+        void setclick(int down, int up)
+        {
+            mouseclickd = down;
+            mouseclicku = up;
         }
 
         void customize(ComboBox box, int i)
