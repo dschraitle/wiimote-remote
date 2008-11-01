@@ -596,52 +596,52 @@ namespace wiimoteremote
 
         private void boxb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxb, 2);
+            customize(boxb, 0);
         }
 
         private void boxup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxup, 3);
+            customize(boxup, 2);
         }
 
         private void boxdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxdown, 4);
+            customize(boxdown, 3);
         }
 
         private void boxleft_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxleft, 5);
+            customize(boxleft, 4);
         }
 
         private void boxright_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxright, 6);
+            customize(boxright, 5);
         }
 
         private void boxhome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxhome, 7);
+            customize(boxhome, 6);
         }
 
         private void boxminus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxminus, 8);
+            customize(boxminus, 7);
         }
 
         private void boxplus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxplus, 9);
+            customize(boxplus, 8);
         }
 
         private void box1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(box1, 10);
+            customize(box1, 9);
         }
 
         private void box2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(box2, 11);
+            customize(box2, 10);
         }     
 
         private void alabel_Click(object sender, EventArgs e)
@@ -651,52 +651,52 @@ namespace wiimoteremote
 
         private void blabel_Click(object sender, EventArgs e)
         {
-            translate(boxb.SelectedIndex, true, 2);
+            translate(boxb.SelectedIndex, true, 0);
         }
 
         private void uplabel_Click(object sender, EventArgs e)
         {
-            translate(boxup.SelectedIndex, true, 3);
+            translate(boxup.SelectedIndex, true, 2);
         }
 
         private void downlabel_Click(object sender, EventArgs e)
         {
-            translate(boxdown.SelectedIndex, true, 4);
+            translate(boxdown.SelectedIndex, true, 3);
         }
 
         private void leftlabel_Click(object sender, EventArgs e)
         {
-            translate(boxleft.SelectedIndex, true, 5);
+            translate(boxleft.SelectedIndex, true, 4);
         }
 
         private void rightlabel_Click(object sender, EventArgs e)
         {
-            translate(boxright.SelectedIndex, true, 6);
+            translate(boxright.SelectedIndex, true, 5);
         }
 
         private void homepicture_Click(object sender, EventArgs e)
         {
-            translate(boxhome.SelectedIndex, true, 7);
+            translate(boxhome.SelectedIndex, true, 6);
         }
 
         private void minuslabel_Click(object sender, EventArgs e)
         {
-            translate(boxminus.SelectedIndex, true, 8);
+            translate(boxminus.SelectedIndex, true, 7);
         }
 
         private void pluslabel_Click(object sender, EventArgs e)
         {
-            translate(boxplus.SelectedIndex, true, 9);
+            translate(boxplus.SelectedIndex, true, 8);
         }
 
         private void onelabel_Click(object sender, EventArgs e)
         {
-            translate(box1.SelectedIndex, true, 10);
+            translate(box1.SelectedIndex, true, 9);
         }
 
         private void twolabel_Click(object sender, EventArgs e)
         {
-            translate(box2.SelectedIndex, true, 11);
+            translate(box2.SelectedIndex, true, 10);
         }
         #endregion
     }
