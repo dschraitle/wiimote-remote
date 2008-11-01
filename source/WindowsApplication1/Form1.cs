@@ -258,6 +258,7 @@ namespace wiimoteremote
         int speed;
         int mouseclickd = MOUSEEVENTF_LEFTDOWN;
         int mouseclicku = MOUSEEVENTF_LEFTUP;
+        byte[] zaccel = new byte[20];
 
         public Form1()
         {
@@ -268,7 +269,7 @@ namespace wiimoteremote
         {
             tb1.Text = custom[1];
             boxes = new ComboBox[] {boxb, boxa, boxup, boxdown, boxleft, boxright, boxhome, boxminus, boxplus, box1, box2};
-            prevselindex = new int[NUMBOXES];
+            prevselindex = new int[NUMBOXES+1];
 
             foreach (ComboBox b in boxes)
                 b.Items.AddRange(items);
@@ -650,52 +651,52 @@ namespace wiimoteremote
 
         private void boxb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxb, 0);
+            customize(boxb, 2);
         }
 
         private void boxup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxup, 2);
+            customize(boxup, 3);
         }
 
         private void boxdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxdown, 3);
+            customize(boxdown, 4);
         }
 
         private void boxleft_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxleft, 4);
+            customize(boxleft, 5);
         }
 
         private void boxright_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxright, 5);
+            customize(boxright, 6);
         }
 
         private void boxhome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxhome, 6);
+            customize(boxhome, 7);
         }
 
         private void boxminus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxminus, 7);
+            customize(boxminus, 8);
         }
 
         private void boxplus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxplus, 8);
+            customize(boxplus, 9);
         }
 
         private void box1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(box1, 9);
+            customize(box1, 10);
         }
 
         private void box2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(box2, 10);
+            customize(box2, 11);
         }     
 
         private void alabel_Click(object sender, EventArgs e)
