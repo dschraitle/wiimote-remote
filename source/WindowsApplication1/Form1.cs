@@ -256,6 +256,7 @@ namespace wiimoteremote
         bool nunchuk = false;
         bool mouse = false;
         int speed;
+        Mutex mut = new Mutex();
         int mouseclickd = MOUSEEVENTF_LEFTDOWN;
         int mouseclicku = MOUSEEVENTF_LEFTUP;
         byte[] zaccel = new byte[20];
@@ -334,10 +335,15 @@ namespace wiimoteremote
 
         void wm_WiimoteChanged(object sender, WiimoteChangedEventArgs args)
         {
+            mut.WaitOne();
             WiimoteState ws = args.WiimoteState;
 
             if (mouse)
             {
+                //for (int i = ACCELDATA - 2; i >= 0; i--)
+                //{
+                //    zaccel[i + 1] = zaccel[i];
+                //}
                 double doublex = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.X * (int)speedbox.Value), 0);
                 double doubley = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.Y * -1 * (int)speedbox.Value), 0);
                 int X = int.Parse(doublex.ToString());
@@ -430,6 +436,8 @@ namespace wiimoteremote
             float f = (((100.0f * 48.0f * (float)(ws.Battery / 48.0f))) / 192.0f);
             BeginInvoke((MethodInvoker)delegate() { lblBattery.Text = f.ToString("F"); });
             BeginInvoke((MethodInvoker)delegate() { pbBattery.Value = (int)f; });
+
+            mut.ReleaseMutex(); 
         }
 
         void wm_ExtensionChanged(object sender, WiimoteExtensionChangedEventArgs args)
