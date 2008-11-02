@@ -248,12 +248,11 @@ namespace wiimoteremote
         #endregion
 
         const int NUMBOXES = 11;
-        object[] items = new object[] { "Ctrl", "Alt", "Shift", "Tab", "Enter", "Esc", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Home", "End", "Delete", "PgDown", "PgUp", "Insert", "PrtScrn", "Backspace", "Space", "LeftClick", "RightClick", "Copy", "Paste", "Custom", "Play", "Pause", "Play/Pause", "Stop", "Prev Track", "Next Track", "Vol Up", "Vol Down", "Vol Mute"};
-        string[] custom = new string[] { "", "", "", "", "", "", "", "", "", "", "", "" };
-        int[] prevselindex;
+        object[] items = new object[] { "Ctrl", "Alt", "Shift", "Tab", "Enter", "Esc", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Home", "End", "Delete", "PgDown", "PgUp", "Insert", "PrtScrn", "Backspace", "Space", "Click", "RightClick", "Copy", "Paste", "Custom", "Play", "Pause", "Play/Pause", "Stop", "Prev Track", "Next Track", "Vol Up", "Vol Down", "Vol Mute"};
+        string[] custom = new string[NUMBOXES];
+        int[] prevselindex = new int[NUMBOXES];
         ComboBox[] boxes;
         bool start = true;
-        bool nunchuk = false;
         bool mouse = false;
         int speed;
         Mutex mut = new Mutex();
@@ -268,33 +267,31 @@ namespace wiimoteremote
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            tb1.Text = custom[1];
-            boxes = new ComboBox[] {boxb, boxa, boxup, boxdown, boxleft, boxright, boxhome, boxminus, boxplus, box1, box2};
-            prevselindex = new int[NUMBOXES+1];
+            for (int i = 0; i < NUMBOXES; i++)
+                custom[i] = "";
+            boxes = new ComboBox[] {boxa, boxb, boxup, boxdown, boxleft, boxright, boxhome, boxminus, boxplus, box1, box2};
 
             foreach (ComboBox b in boxes)
                 b.Items.AddRange(items);
 
-            int[] saveo = new int[11] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            int[] saveo = new int[NUMBOXES];
             try
             {
                 RegistryKey ourkey;
                 ourkey = Registry.Users;
                 ourkey = ourkey.OpenSubKey(@".DEFAULT\Software\Schraitle\Remote");
-                for (int i = 0; i <= NUMBOXES-1; i++) saveo[i] = (int)ourkey.GetValue(boxes[i].Name);  
-                for (int i = 0; i <= NUMBOXES-1; i++) custom[i] = (string)ourkey.GetValue(boxes[i].Name+"custom");
+                for (int i = 0; i < NUMBOXES; i++) saveo[i] = (int)ourkey.GetValue(boxes[i].Name);  
+                for (int i = 0; i < NUMBOXES; i++) custom[i] = (string)ourkey.GetValue(boxes[i].Name+"custom");
                 tb1.Text = (string)ourkey.GetValue("custom");
-                for (int i = 0; i < NUMBOXES-1; i++)
+                for (int i = 0; i < NUMBOXES; i++)
                     if (saveo[i] == 23){
                         boxes[i].Items.RemoveAt(23);
                         boxes[i].Items.Insert(23, custom[i]);
                         boxes[i].SelectedItem = custom[i];}
-                start = false;
             }
             catch (Exception x) { x.ToString(); }
 
-            for (int i = 0; i <= NUMBOXES-1; i++) boxes[i].SelectedIndex = saveo[i];
-
+            for (int i = 0; i < NUMBOXES; i++) boxes[i].SelectedIndex = saveo[i];
             wm.WiimoteChanged += wm_WiimoteChanged;
             wm.WiimoteExtensionChanged += wm_ExtensionChanged;
             try
@@ -303,9 +300,7 @@ namespace wiimoteremote
                 wm.SetLEDs(true, false, false, false);
                 if (wm.WiimoteState.ExtensionType.ToString() == "Nunchuk")
                 {
-
                     wm.SetReportType(InputReport.ButtonsExtension, true);
-                    nunchuk = true;
                     mouse = true;
                 }
                 else
@@ -318,12 +313,17 @@ namespace wiimoteremote
                 MessageBox.Show("Exception: " + x.Message);
                 connectbox.Text = "not connected";
             }
+            checkmouse.Checked = mouse;
+            start = false;
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            for (int i = 1; i < custom.Length; i++ )
-                if (custom[i] == null) custom[i] = "";
+            regsave();
+        }
+
+        private void regsave()
+        {
             RegistryKey ourkey = Registry.Users;
             ourkey = ourkey.CreateSubKey(@".DEFAULT\Software\Schraitle\Remote");
             ourkey.OpenSubKey(@".DEFAULT\Software\Schraitle\Remote", true);
@@ -340,14 +340,14 @@ namespace wiimoteremote
 
             if (mouse)
             {
-                //for (int i = ACCELDATA - 2; i >= 0; i--)
-                //{
-                //    zaccel[i + 1] = zaccel[i];
-                //}
                 double doublex = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.X * (int)speedbox.Value), 0);
                 double doubley = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.Y * -1 * (int)speedbox.Value), 0);
                 int X = int.Parse(doublex.ToString());
                 int Y = int.Parse(doubley.ToString());
+                if (ws.NunchukState.Joystick.Y < .012 && ws.NunchukState.Joystick.Y > -.012)
+                    Y = 0;
+                if (ws.NunchukState.Joystick.X < .012 && ws.NunchukState.Joystick.X > -.012)
+                    X = 0;
                 Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y + Y);
 
                 if (!lastWiiState.NunchukState.Z && ws.NunchukState.Z)
@@ -358,78 +358,81 @@ namespace wiimoteremote
 
                 if (!lastWiiState.NunchukState.C && ws.NunchukState.C)
                 {
+                    lastWiiState.NunchukState.C = ws.NunchukState.C;
                     speed = (int)speedbox.Value;
                     speedbox.Value = speedbox.Value / 3;
                 }
                 if (lastWiiState.NunchukState.C && !ws.NunchukState.C)
+                {
+                    lastWiiState.NunchukState.C = ws.NunchukState.C;
                     speedbox.Value = speed;
-                lastWiiState.NunchukState.C = ws.NunchukState.C;
+                }
             }
 
             if (!lastWiiState.ButtonState.A && ws.ButtonState.A)
-                translate(boxa.SelectedIndex, true, 1);
+                translate(boxa.SelectedIndex, true, 0);
             if (lastWiiState.ButtonState.A && !ws.ButtonState.A)
-                translate(boxa.SelectedIndex, false, 1);
+                translate(boxa.SelectedIndex, false, 0);
             lastWiiState.ButtonState.A = ws.ButtonState.A;
 
             if (!lastWiiState.ButtonState.B && ws.ButtonState.B)
-                translate(boxb.SelectedIndex, true, 2);
+                translate(boxb.SelectedIndex, true, 1);
             if (lastWiiState.ButtonState.B && !ws.ButtonState.B)
-                translate(boxb.SelectedIndex, false, 2);
+                translate(boxb.SelectedIndex, false, 1);
             lastWiiState.ButtonState.B = ws.ButtonState.B;
 
             if (!lastWiiState.ButtonState.Up && ws.ButtonState.Up)
-                translate(boxup.SelectedIndex, true, 3);
+                translate(boxup.SelectedIndex, true, 2);
             if (lastWiiState.ButtonState.Up && !ws.ButtonState.Up)
-                translate(boxup.SelectedIndex, false, 3);
+                translate(boxup.SelectedIndex, false, 2);
             lastWiiState.ButtonState.Up = ws.ButtonState.Up;
 
             if (!lastWiiState.ButtonState.Down && ws.ButtonState.Down)
-                translate(boxdown.SelectedIndex, true, 4);
+                translate(boxdown.SelectedIndex, true, 3);
             if (lastWiiState.ButtonState.Down && !ws.ButtonState.Down)
-                translate(boxdown.SelectedIndex, false, 4);
+                translate(boxdown.SelectedIndex, false, 3);
             lastWiiState.ButtonState.Down = ws.ButtonState.Down;
 
             if (!lastWiiState.ButtonState.Left && ws.ButtonState.Left)
-                translate(boxleft.SelectedIndex, true, 5);
+                translate(boxleft.SelectedIndex, true, 4);
             if (lastWiiState.ButtonState.Left && !ws.ButtonState.Left)
-                translate(boxleft.SelectedIndex, false, 5);
+                translate(boxleft.SelectedIndex, false, 4);
             lastWiiState.ButtonState.Left = ws.ButtonState.Left;
 
             if (!lastWiiState.ButtonState.Right && ws.ButtonState.Right)
-                translate(boxright.SelectedIndex, true, 6);
+                translate(boxright.SelectedIndex, true, 5);
             if (lastWiiState.ButtonState.Right && !ws.ButtonState.Right)
-                translate(boxright.SelectedIndex, false, 6);
+                translate(boxright.SelectedIndex, false, 5);
             lastWiiState.ButtonState.Right = ws.ButtonState.Right;
 
             if (!lastWiiState.ButtonState.Home && ws.ButtonState.Home)
-                translate(boxhome.SelectedIndex, true, 7);
+                translate(boxhome.SelectedIndex, true, 6);
             if (lastWiiState.ButtonState.Home && !ws.ButtonState.Home)
-                translate(boxhome.SelectedIndex, false, 7);
+                translate(boxhome.SelectedIndex, false, 6);
             lastWiiState.ButtonState.Home = ws.ButtonState.Home;
 
             if (!lastWiiState.ButtonState.Minus && ws.ButtonState.Minus)
-                translate(boxminus.SelectedIndex, true, 8);
+                translate(boxminus.SelectedIndex, true, 7);
             if (lastWiiState.ButtonState.Minus && !ws.ButtonState.Minus)
-                translate(boxminus.SelectedIndex, false, 8);
+                translate(boxminus.SelectedIndex, false, 7);
             lastWiiState.ButtonState.Minus = ws.ButtonState.Minus;
 
             if (!lastWiiState.ButtonState.Plus && ws.ButtonState.Plus)
-                translate(boxplus.SelectedIndex, true, 9);
+                translate(boxplus.SelectedIndex, true, 8);
             if (lastWiiState.ButtonState.Plus && !ws.ButtonState.Plus)
-                translate(boxplus.SelectedIndex, false, 9);
+                translate(boxplus.SelectedIndex, false, 8);
             lastWiiState.ButtonState.Plus = ws.ButtonState.Plus;
 
             if (!lastWiiState.ButtonState.One && ws.ButtonState.One)
-                translate(box1.SelectedIndex, true, 10);
+                translate(box1.SelectedIndex, true, 9);
             if (lastWiiState.ButtonState.One && !ws.ButtonState.One)
-                translate(box1.SelectedIndex, false, 10);
+                translate(box1.SelectedIndex, false, 9);
             lastWiiState.ButtonState.One = ws.ButtonState.One;
 
             if (!lastWiiState.ButtonState.Two && ws.ButtonState.Two)
-                translate(box2.SelectedIndex, true, 11);
+                translate(box2.SelectedIndex, true, 10);
             if (lastWiiState.ButtonState.Two && !ws.ButtonState.Two)
-                translate(box2.SelectedIndex, false, 11);
+                translate(box2.SelectedIndex, false, 10);
             lastWiiState.ButtonState.Two = ws.ButtonState.Two;
 
             //(ws.Battery > 0x64 ? 0x64 : (int)ws.Battery); });
@@ -444,101 +447,106 @@ namespace wiimoteremote
         {
             //if extension attached, enable it
             if (args.Inserted)
-                wm.SetReportType(InputReport.ButtonsExtension, true);
+            {
+                if (wm.WiimoteState.ExtensionType.ToString() == "Nunchuk")
+                {
+                    mouse = true;
+                    wm.SetReportType(InputReport.ButtonsExtension, true);
+                }
+            }
             else
             {
                 wm.SetReportType(InputReport.Buttons, true);
-                nunchuk = false;
+                mouse = false;
             }
-            if (wm.WiimoteState.ExtensionType.ToString() == "Nunchuk")
-            {
-                nunchuk = true;
-                mouse = true;
-            }
+            start = true;
+            checkmouse.Checked = mouse;
+            start = false;
             label1.Text = wm.WiimoteState.ExtensionType.ToString();
         }
 
         void translate(int i, bool down, int button)
         {
-            if (i == 0) {
+            if (i == 0) {   //Ctrl
                 if (down) keybd_event(VK_CONTROL, 0x45, 0, 0);
                 else keybd_event(VK_CONTROL, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 1){
+            if (i == 1){    //Alt
                 if (down) keybd_event(VK_MENU, 0x45, 0, 0);
                 else keybd_event(VK_MENU, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 2){
+            if (i == 2){    //Shift
                 if (down) keybd_event(VK_SHIFT, 0x45, 0, 0);
                 else keybd_event(VK_SHIFT, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 3){
+            if (i == 3){    //Tab
                 if (down) keybd_event(VK_TAB, 0x45, 0, 0);
                 else keybd_event(VK_TAB, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 4){
+            if (i == 4){    //Enter
                 if (down) keybd_event(VK_RETURN, 0x45, 0, 0);
                 else keybd_event(VK_RETURN, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 5){
+            if (i == 5){    //Esc
                 if (down) keybd_event(VK_ESCAPE, 0x45, 0, 0);
                 else keybd_event(VK_ESCAPE, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 6){
+            if (i == 6){    //Uparrow
                 if (down) keybd_event(VK_UP, 0x45, 0, 0);
                 else keybd_event(VK_UP, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 7){
+            if (i == 7){    //downarrow
                 if (down) keybd_event(VK_DOWN, 0x45, 0, 0);
                 else keybd_event(VK_DOWN, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 8){
+            if (i == 8){    //leftarrow
                 if (down) keybd_event(VK_LEFT, 0x45, 0, 0);
                 else keybd_event(VK_LEFT, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 9){
+            if (i == 9){    //rightarrow
                 if (down) keybd_event(VK_RIGHT, 0x45, 0, 0);
                 else keybd_event(VK_RIGHT, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 10){
+            if (i == 10){   //home
                 if (down) keybd_event(VK_HOME, 0x45, 0, 0);
                 else keybd_event(VK_HOME, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 11){
+            if (i == 11){   //end
                 if (down) keybd_event(VK_END, 0x45, 0, 0);
                 else keybd_event(VK_END, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 12){
+            if (i == 12){   //delete
                 if (down) keybd_event(VK_DELETE, 0x45, 0, 0);
                 else keybd_event(VK_DELETE, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 13){
+            if (i == 13){   //pgdown
                 if (down) keybd_event(VK_NEXT, 0x45, 0, 0);
                 else keybd_event(VK_NEXT, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 14){
+            if (i == 14){   //pgup
                 if (down) keybd_event(VK_PRIOR, 0x45, 0, 0);
                 else keybd_event(VK_PRIOR, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 15){
+            if (i == 15){   //insert
                 if (down) keybd_event(VK_INS, 0x45, 0, 0);
                 else keybd_event(VK_INS, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 16){
+            if (i == 16){   //printscreen
                 if (down) keybd_event(VK_SNAPSHOT, 0x45, 0, 0);
                 else keybd_event(VK_SNAPSHOT, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 17){
+            if (i == 17){   //backspace
                 if (down) keybd_event(VK_BACK, 0x45, 0, 0);
                 else keybd_event(VK_BACK, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 18){
+            if (i == 18){   //space
                 if (down) keybd_event(VK_SPACE, 0x45, 0, 0);
                 else keybd_event(VK_SPACE, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 19){
-                if (down) keybd_event(VK_LBUTTON, 0x45, 0, 0);
-                else keybd_event(VK_LBUTTON, 0x45, KEYEVENTF_KEYUP, 0);}
-            if (i == 20){
+            if (i == 19){   //click
+                if (down) mouse_event(mouseclickd, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+                else mouse_event(mouseclicku, Cursor.Position.X, Cursor.Position.Y, 0, 0);
+            }
+            if (i == 20){   //right click
                 if (down) setclick(MOUSEEVENTF_RIGHTDOWN, MOUSEEVENTF_RIGHTUP);
                 else setclick(MOUSEEVENTF_LEFTDOWN, MOUSEEVENTF_LEFTUP);
             }
-            if (i == 21){
+            if (i == 21){   //copy
                 if (down){
                     keybd_event(VK_CONTROL, 0x45, 0, 0);
                     keybd_event(0x43, 0x45, 0, 0);}//control + c
                 else{
                     keybd_event(VK_CONTROL, 0x45, KEYEVENTF_KEYUP, 0);
                     keybd_event(0x43, 0x45, KEYEVENTF_KEYUP, 0);}}
-            if (i == 22){
+            if (i == 22){   //paste
                 if (down){
                     keybd_event(VK_CONTROL, 0x45, 0, 0);
                     keybd_event(0x56, 0x45, 0, 0);}//control + v
                 else{
                     keybd_event(VK_CONTROL, 0x45, KEYEVENTF_KEYUP, 0);
                     keybd_event(0x56, 0x45, KEYEVENTF_KEYUP, 0);}}
-            if (i == 23){
+            if (i == 23){   //custom
                 if (down){
                     SendKeys.SendWait(custom[button]);}}
             if (i == 24) if (down) SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PLAY));
@@ -655,73 +663,74 @@ namespace wiimoteremote
                 box.Items.RemoveAt(23);
                 box.Items.Insert(23, "Custom");
             }
+            if(!start)
             prevselindex[i] = box.SelectedIndex;
         }
 
         #region events
         private void boxa_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxa, 1);
+            customize(boxa, 0);
         }
 
         private void boxb_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxb, 2);
+            customize(boxb, 1);
         }
 
         private void boxup_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxup, 3);
+            customize(boxup, 2);
         }
 
         private void boxdown_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxdown, 4);
+            customize(boxdown, 3);
         }
 
         private void boxleft_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxleft, 5);
+            customize(boxleft, 4);
         }
 
         private void boxright_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxright, 6);
+            customize(boxright, 5);
         }
 
         private void boxhome_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxhome, 7);
+            customize(boxhome, 6);
         }
 
         private void boxminus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxminus, 8);
+            customize(boxminus, 7);
         }
 
         private void boxplus_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(boxplus, 9);
+            customize(boxplus, 8);
         }
 
         private void box1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(box1, 10);
+            customize(box1, 9);
         }
 
         private void box2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            customize(box2, 11);
+            customize(box2, 10);
         }     
 
         private void alabel_Click(object sender, EventArgs e)
         {
-            translate(boxa.SelectedIndex, true, 1);
+            translate(boxa.SelectedIndex, true, 0);
         }
 
         private void blabel_Click(object sender, EventArgs e)
         {
-            translate(boxb.SelectedIndex, true, 0);
+            translate(boxb.SelectedIndex, true, 1);
         }
 
         private void uplabel_Click(object sender, EventArgs e)
@@ -769,5 +778,11 @@ namespace wiimoteremote
             translate(box2.SelectedIndex, true, 10);
         }
         #endregion
+
+        private void checkmouse_CheckedChanged(object sender, EventArgs e)
+        {
+            if(!start)
+            mouse = !mouse;
+        }
     }
 }

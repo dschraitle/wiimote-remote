@@ -68,6 +68,7 @@ namespace wiimoteremote
             this.label13 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.speedbox = new System.Windows.Forms.NumericUpDown();
+            this.checkmouse = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -378,7 +379,7 @@ namespace wiimoteremote
             // 
             // connectbutton
             // 
-            this.connectbutton.Location = new System.Drawing.Point(139, 369);
+            this.connectbutton.Location = new System.Drawing.Point(140, 478);
             this.connectbutton.Name = "connectbutton";
             this.connectbutton.Size = new System.Drawing.Size(75, 23);
             this.connectbutton.TabIndex = 34;
@@ -389,7 +390,7 @@ namespace wiimoteremote
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(7, 374);
+            this.label11.Location = new System.Drawing.Point(8, 483);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(48, 13);
             this.label11.TabIndex = 35;
@@ -398,7 +399,7 @@ namespace wiimoteremote
             // connectbox
             // 
             this.connectbox.AutoSize = true;
-            this.connectbox.Location = new System.Drawing.Point(57, 374);
+            this.connectbox.Location = new System.Drawing.Point(58, 483);
             this.connectbox.Name = "connectbox";
             this.connectbox.Size = new System.Drawing.Size(76, 13);
             this.connectbox.TabIndex = 36;
@@ -466,11 +467,23 @@ namespace wiimoteremote
             0,
             0});
             // 
+            // checkmouse
+            // 
+            this.checkmouse.AutoSize = true;
+            this.checkmouse.Location = new System.Drawing.Point(7, 374);
+            this.checkmouse.Name = "checkmouse";
+            this.checkmouse.Size = new System.Drawing.Size(94, 17);
+            this.checkmouse.TabIndex = 45;
+            this.checkmouse.Text = "Mouse Control";
+            this.checkmouse.UseVisualStyleBackColor = true;
+            this.checkmouse.CheckedChanged += new System.EventHandler(this.checkmouse_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(303, 400);
+            this.ClientSize = new System.Drawing.Size(303, 505);
+            this.Controls.Add(this.checkmouse);
             this.Controls.Add(this.speedbox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label13);
@@ -561,6 +574,7 @@ namespace wiimoteremote
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown speedbox;
+        private System.Windows.Forms.CheckBox checkmouse;
 
 
     }
