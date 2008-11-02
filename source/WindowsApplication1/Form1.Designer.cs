@@ -69,6 +69,12 @@ namespace wiimoteremote
             this.label1 = new System.Windows.Forms.Label();
             this.speedbox = new System.Windows.Forms.NumericUpDown();
             this.checkmouse = new System.Windows.Forms.CheckBox();
+            this.shiftbutton = new System.Windows.Forms.Button();
+            this.clabel = new System.Windows.Forms.Label();
+            this.boxc = new System.Windows.Forms.ComboBox();
+            this.zlabel = new System.Windows.Forms.Label();
+            this.boxz = new System.Windows.Forms.ComboBox();
+            this.shiftlabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -103,7 +109,6 @@ namespace wiimoteremote
             this.alabel.Size = new System.Drawing.Size(23, 24);
             this.alabel.TabIndex = 11;
             this.alabel.Text = "A";
-            this.alabel.Click += new System.EventHandler(this.alabel_Click);
             // 
             // pluslabel
             // 
@@ -114,7 +119,6 @@ namespace wiimoteremote
             this.pluslabel.Size = new System.Drawing.Size(21, 24);
             this.pluslabel.TabIndex = 12;
             this.pluslabel.Text = "+";
-            this.pluslabel.Click += new System.EventHandler(this.pluslabel_Click);
             // 
             // homepicture
             // 
@@ -124,7 +128,6 @@ namespace wiimoteremote
             this.homepicture.Size = new System.Drawing.Size(26, 26);
             this.homepicture.TabIndex = 13;
             this.homepicture.TabStop = false;
-            this.homepicture.Click += new System.EventHandler(this.homepicture_Click);
             // 
             // blabel
             // 
@@ -135,7 +138,6 @@ namespace wiimoteremote
             this.blabel.Size = new System.Drawing.Size(22, 24);
             this.blabel.TabIndex = 14;
             this.blabel.Text = "B";
-            this.blabel.Click += new System.EventHandler(this.blabel_Click);
             // 
             // minuslabel
             // 
@@ -146,7 +148,6 @@ namespace wiimoteremote
             this.minuslabel.Size = new System.Drawing.Size(26, 33);
             this.minuslabel.TabIndex = 15;
             this.minuslabel.Text = "-";
-            this.minuslabel.Click += new System.EventHandler(this.minuslabel_Click);
             // 
             // onelabel
             // 
@@ -157,7 +158,6 @@ namespace wiimoteremote
             this.onelabel.Size = new System.Drawing.Size(20, 24);
             this.onelabel.TabIndex = 16;
             this.onelabel.Text = "1";
-            this.onelabel.Click += new System.EventHandler(this.onelabel_Click);
             // 
             // twolabel
             // 
@@ -168,7 +168,6 @@ namespace wiimoteremote
             this.twolabel.Size = new System.Drawing.Size(20, 24);
             this.twolabel.TabIndex = 17;
             this.twolabel.Text = "2";
-            this.twolabel.Click += new System.EventHandler(this.twolabel_Click);
             // 
             // rightlabel
             // 
@@ -179,7 +178,6 @@ namespace wiimoteremote
             this.rightlabel.Size = new System.Drawing.Size(21, 24);
             this.rightlabel.TabIndex = 18;
             this.rightlabel.Text = ">";
-            this.rightlabel.Click += new System.EventHandler(this.rightlabel_Click);
             // 
             // downlabel
             // 
@@ -190,7 +188,6 @@ namespace wiimoteremote
             this.downlabel.Size = new System.Drawing.Size(19, 24);
             this.downlabel.TabIndex = 19;
             this.downlabel.Text = "v";
-            this.downlabel.Click += new System.EventHandler(this.downlabel_Click);
             // 
             // uplabel
             // 
@@ -201,7 +198,6 @@ namespace wiimoteremote
             this.uplabel.Size = new System.Drawing.Size(19, 24);
             this.uplabel.TabIndex = 20;
             this.uplabel.Text = "^";
-            this.uplabel.Click += new System.EventHandler(this.uplabel_Click);
             // 
             // leftlabel
             // 
@@ -212,7 +208,6 @@ namespace wiimoteremote
             this.leftlabel.Size = new System.Drawing.Size(21, 24);
             this.leftlabel.TabIndex = 21;
             this.leftlabel.Text = "<";
-            this.leftlabel.Click += new System.EventHandler(this.leftlabel_Click);
             // 
             // menuStrip1
             // 
@@ -449,11 +444,12 @@ namespace wiimoteremote
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(123, 351);
+            this.label1.Location = new System.Drawing.Point(137, 351);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 43;
             this.label1.Text = "label1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // speedbox
             // 
@@ -478,11 +474,78 @@ namespace wiimoteremote
             this.checkmouse.UseVisualStyleBackColor = true;
             this.checkmouse.CheckedChanged += new System.EventHandler(this.checkmouse_CheckedChanged);
             // 
+            // shiftbutton
+            // 
+            this.shiftbutton.Location = new System.Drawing.Point(181, 374);
+            this.shiftbutton.Name = "shiftbutton";
+            this.shiftbutton.Size = new System.Drawing.Size(75, 23);
+            this.shiftbutton.TabIndex = 46;
+            this.shiftbutton.Text = "Switch";
+            this.shiftbutton.UseVisualStyleBackColor = true;
+            this.shiftbutton.Click += new System.EventHandler(this.shiftbutton_Click);
+            // 
+            // clabel
+            // 
+            this.clabel.AutoSize = true;
+            this.clabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.clabel.Location = new System.Drawing.Point(7, 397);
+            this.clabel.Name = "clabel";
+            this.clabel.Size = new System.Drawing.Size(23, 24);
+            this.clabel.TabIndex = 48;
+            this.clabel.Text = "C";
+            // 
+            // boxc
+            // 
+            this.boxc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxc.FormattingEnabled = true;
+            this.boxc.Location = new System.Drawing.Point(32, 397);
+            this.boxc.Name = "boxc";
+            this.boxc.Size = new System.Drawing.Size(77, 21);
+            this.boxc.TabIndex = 47;
+            this.boxc.SelectedIndexChanged += new System.EventHandler(this.boxc_SelectedIndexChanged);
+            // 
+            // zlabel
+            // 
+            this.zlabel.AutoSize = true;
+            this.zlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.zlabel.Location = new System.Drawing.Point(7, 424);
+            this.zlabel.Name = "zlabel";
+            this.zlabel.Size = new System.Drawing.Size(22, 24);
+            this.zlabel.TabIndex = 50;
+            this.zlabel.Text = "Z";
+            // 
+            // boxz
+            // 
+            this.boxz.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.boxz.FormattingEnabled = true;
+            this.boxz.Location = new System.Drawing.Point(32, 424);
+            this.boxz.Name = "boxz";
+            this.boxz.Size = new System.Drawing.Size(77, 21);
+            this.boxz.TabIndex = 49;
+            this.boxz.SelectedIndexChanged += new System.EventHandler(this.boxz_SelectedIndexChanged);
+            // 
+            // shiftlabel
+            // 
+            this.shiftlabel.AutoSize = true;
+            this.shiftlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.shiftlabel.Location = new System.Drawing.Point(112, 377);
+            this.shiftlabel.Name = "shiftlabel";
+            this.shiftlabel.Size = new System.Drawing.Size(63, 16);
+            this.shiftlabel.TabIndex = 51;
+            this.shiftlabel.Text = "Regular";
+            this.shiftlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 505);
+            this.Controls.Add(this.shiftlabel);
+            this.Controls.Add(this.zlabel);
+            this.Controls.Add(this.boxz);
+            this.Controls.Add(this.clabel);
+            this.Controls.Add(this.boxc);
+            this.Controls.Add(this.shiftbutton);
             this.Controls.Add(this.checkmouse);
             this.Controls.Add(this.speedbox);
             this.Controls.Add(this.label1);
@@ -575,6 +638,12 @@ namespace wiimoteremote
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown speedbox;
         private System.Windows.Forms.CheckBox checkmouse;
+        private System.Windows.Forms.Button shiftbutton;
+        private System.Windows.Forms.Label clabel;
+        private System.Windows.Forms.ComboBox boxc;
+        private System.Windows.Forms.Label zlabel;
+        private System.Windows.Forms.ComboBox boxz;
+        private System.Windows.Forms.Label shiftlabel;
 
 
     }
