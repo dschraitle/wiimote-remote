@@ -422,7 +422,7 @@ namespace wiimoteremote
             if (!lastWiiState.ButtonState.Two && ws.ButtonState.Two && !shifted)
                 translate(maps[0].indexes[10], true, 10);
             if (lastWiiState.ButtonState.Two && !ws.ButtonState.Two)
-                    translate(maps[0].indexes[10], false, 10);
+                translate(maps[0].indexes[10], false, 10);
             lastWiiState.ButtonState.Two = ws.ButtonState.Two;
 
             //(ws.Battery > 0x64 ? 0x64 : (int)ws.Battery); });
