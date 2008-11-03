@@ -239,26 +239,6 @@ namespace wiimoteremote
             start = false;
         }
 
-        public static string SerializeToString(object obj)
-        {
-            XmlSerializer serializer = new XmlSerializer(obj.GetType());
-            using (StringWriter writer = new StringWriter())
-            {
-                serializer.Serialize(writer, obj);
-                return writer.ToString();
-            }
-        }
-
-        public static T SerializeFromString<T>(string xml)
-        {
-            XmlSerializer serializer = new XmlSerializer(typeof(T));
-
-            using (StringReader reader = new StringReader(xml))
-            {
-                return (T)serializer.Deserialize(reader);
-            }
-        }
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             regsave();
@@ -288,6 +268,26 @@ namespace wiimoteremote
             ourkey.SetValue("custom", tb1.Text);
             ourkey.SetValue("speed", speedbox.Value);
             ourkey.Close();
+        }
+
+        public static string SerializeToString(object obj)
+        {
+            XmlSerializer serializer = new XmlSerializer(obj.GetType());
+            using (StringWriter writer = new StringWriter())
+            {
+                serializer.Serialize(writer, obj);
+                return writer.ToString();
+            }
+        }
+
+        public static T SerializeFromString<T>(string xml)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(T));
+
+            using (StringReader reader = new StringReader(xml))
+            {
+                return (T)serializer.Deserialize(reader);
+            }
         }
 
         void wm_WiimoteChanged(object sender, WiimoteChangedEventArgs args)
@@ -601,26 +601,10 @@ namespace wiimoteremote
             svfl.Filter = "Special Files (*.sch)|*.sch";
             if (svfl.ShowDialog() == DialogResult.OK)
             {
-                StreamWriter sw;
-                sw = File.CreateText(svfl.FileName);
-                sw.WriteLine(boxa.SelectedIndex);
-                sw.WriteLine(boxb.SelectedIndex);
-                sw.WriteLine(boxup.SelectedIndex);
-                sw.WriteLine(boxdown.SelectedIndex);
-                sw.WriteLine(boxleft.SelectedIndex);
-                sw.WriteLine(boxright.SelectedIndex);
-                sw.WriteLine(boxhome.SelectedIndex);
-                sw.WriteLine(boxminus.SelectedIndex);
-                sw.WriteLine(boxplus.SelectedIndex);
-                sw.WriteLine(box1.SelectedIndex);
-                sw.WriteLine(box2.SelectedIndex);
-                foreach (string s in custom){
-                    string t = s;
-                    if (s == "")
-                        t = "nothinghere";
-                    sw.WriteLine(t);}
-                sw.WriteLine(tb1.Text);
-                sw.Close();
+                XmlSerializer s = new XmlSerializer(typeof(buttonmap[]));
+                TextWriter w = new StreamWriter(svfl.FileName);
+                s.Serialize(w, maps);
+                w.Close();
             }
         }
 
@@ -630,32 +614,13 @@ namespace wiimoteremote
             opfl.Filter = "Special Files (*.sch)|*.sch";
             if (opfl.ShowDialog() == DialogResult.OK)
             {
-                StreamReader sr;
-                sr = File.OpenText(opfl.FileName);
-                boxa.SelectedIndex = int.Parse(sr.ReadLine());
-                boxb.SelectedIndex = int.Parse(sr.ReadLine());
-                boxup.SelectedIndex = int.Parse(sr.ReadLine());
-                boxdown.SelectedIndex = int.Parse(sr.ReadLine());
-                boxleft.SelectedIndex = int.Parse(sr.ReadLine());
-                boxright.SelectedIndex = int.Parse(sr.ReadLine());
-                boxhome.SelectedIndex = int.Parse(sr.ReadLine());
-                boxminus.SelectedIndex = int.Parse(sr.ReadLine());
-                boxplus.SelectedIndex = int.Parse(sr.ReadLine());
-                box1.SelectedIndex = int.Parse(sr.ReadLine());
-                box2.SelectedIndex = int.Parse(sr.ReadLine());
-                sr.ReadLine();
-                for (int i = 1; i < custom.Length;i++){
-                    custom[i] = sr.ReadLine();
-                    if (custom[i] != null && custom[i] != "nothinghere"){
-                        boxes[i].Items.RemoveAt(23);
-                        boxes[i].Items.Insert(23, custom[i]);
-                        boxes[i].SelectedItem = custom[i];}
-                    else { custom[i] = ""; }}
-                tb1.Text = sr.ReadLine();
-                sr.Close();
-            }
-
-
+                TextReader r = new StreamReader(opfl.FileName);
+                XmlSerializer s = new XmlSerializer(typeof(buttonmap[]));
+                maps = (buttonmap[])s.Deserialize(r);
+                r.Close();
+                currentmap = 0;
+                changestate();
+            }            
         }
 
         void setclick(int down, int up)
@@ -768,6 +733,10 @@ namespace wiimoteremote
         {
             for (int i = 0; i < NUMBOXES; i++)
             {
+                if (!boxes[i].Enabled)
+                    boxes[i].Enabled = true;
+                if (currentmap == 1 && maps[0].indexes[i] == 33)
+                    boxes[i].Enabled = false;
                 boxes[i].Items.RemoveAt(23);
                 if (maps[currentmap].indexes[i] == 23)
                 {
