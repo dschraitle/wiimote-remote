@@ -179,6 +179,7 @@ namespace wiimoteremote
         public buttonmap[] maps = new buttonmap[] { new buttonmap(), new buttonmap() };
         bool shifted = false;
         int currentmap = 0;
+        NotifyIcon tray = new NotifyIcon();
 
         public Form1()
         {
@@ -236,6 +237,10 @@ namespace wiimoteremote
                 connectbox.Text = "not connected";
             }
             checkmouse.Checked = mouse;
+
+            tray.Visible = false;
+            tray.Icon = this.Icon;
+            tray.MouseDoubleClick += new MouseEventHandler(tray_MouseDoubleClick);
             start = false;
         }
 
@@ -761,7 +766,23 @@ namespace wiimoteremote
                 currentmap = 0;
                 shiftlabel.Text = "Regular";
             }
-            changestate();          
+            changestate();
+        }
+
+        void tray_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            this.Show();
+            WindowState = FormWindowState.Normal;
+            tray.Visible = false;
+        }
+
+        private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Minimized)
+            {
+                tray.Visible = true;
+                this.Hide();
+            }
         }
     }
 }

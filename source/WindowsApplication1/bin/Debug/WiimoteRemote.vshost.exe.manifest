@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <asmv1:assemblyIdentity name="WiimoteRemote.exe" version="1.0.2.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
+  <description asmv2:iconFile="Icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
     <assemblyIdentity name="WiimoteRemote" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
@@ -39,17 +40,26 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="81920">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="118784">
       <assemblyIdentity name="WiimoteRemote" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>0HHafblXyeLm/2RJnQauADJzWzQ=</dsig:DigestValue>
+        <dsig:DigestValue>VPdo2oZe5WeVPMhy/N9FkD4SWHc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
+  <file name="Icon.ico" size="18854">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+      <dsig:DigestValue>V5ZcK3UjGD1UchcF4SOVR9Tl4Sg=</dsig:DigestValue>
+    </hash>
+  </file>
   <file name="WiimoteLib\docs\copyright.txt" size="226">
     <hash>
       <dsig:Transforms>

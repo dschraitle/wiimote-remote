@@ -28,6 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationVersion>1.0.2.%2a</ApplicationVersion>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -132,6 +133,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Icon.ico" />
     <Content Include="WiimoteLib\docs\copyright.txt" />
     <Content Include="WiimoteLib\docs\license.txt" />
     <Content Include="WiimoteLib\docs\readme.txt" />
