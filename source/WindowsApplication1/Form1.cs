@@ -309,120 +309,120 @@ namespace wiimoteremote
 
                 if (shifted)
                 {
-                    if (ws.NunchukState.C && !done[11]) translate(maps[1].indexes[11], true, 11);
-                    if (ws.NunchukState.Z && !done[12]) translate(maps[1].indexes[12], true, 12);
-                    if (!ws.NunchukState.C && done[11]) translate(maps[1].indexes[11], false, 11);
-                    if (!ws.NunchukState.Z && done[12]) translate(maps[1].indexes[12], false, 12);
+                    if (ws.NunchukState.C && !done[11]) translate((string)items[maps[1].indexes[11]], true, 11);
+                    if (ws.NunchukState.Z && !done[12]) translate((string)items[maps[1].indexes[12]], true, 12);
+                    if (!ws.NunchukState.C && done[11]) translate((string)items[maps[1].indexes[11]], false, 11);
+                    if (!ws.NunchukState.Z && done[12]) translate((string)items[maps[1].indexes[12]], false, 12);
                 }
 
 
                 if (!lastWiiState.NunchukState.C && ws.NunchukState.C && !shifted)
-                    translate(maps[0].indexes[11], true, 11);
+                    translate((string)items[maps[0].indexes[11]], true, 11);
                 if (lastWiiState.NunchukState.C && !ws.NunchukState.C)
                 {
-                    translate(maps[0].indexes[11], false, 11);
+                    translate((string)items[maps[0].indexes[11]], false, 11);
                 }
                 lastWiiState.NunchukState.C = ws.NunchukState.C;
 
                 if (!lastWiiState.NunchukState.Z && ws.NunchukState.Z && !shifted)
-                    translate(maps[0].indexes[12], true, 12);
+                    translate((string)items[maps[0].indexes[12]], true, 12);
                 if (lastWiiState.NunchukState.Z && !ws.NunchukState.Z)
                 {
-                    translate(maps[0].indexes[12], false, 12);
+                    translate((string)items[maps[0].indexes[12]], false, 12);
                 }
                 lastWiiState.NunchukState.Z = ws.NunchukState.Z;
             }
 
             if (shifted)
             {
-                if (ws.ButtonState.A && !done[0]) translate(maps[1].indexes[0], true, 0);
-                if (ws.ButtonState.B && !done[1]) translate(maps[1].indexes[1], true, 1);
-                if (ws.ButtonState.Up && !done[2]) translate(maps[1].indexes[2], true, 2);
-                if (ws.ButtonState.Down && !done[3]) translate(maps[1].indexes[3], true, 3);
-                if (ws.ButtonState.Left && !done[4]) translate(maps[1].indexes[4], true, 4);
-                if (ws.ButtonState.Right && !done[5]) translate(maps[1].indexes[5], true, 5);
-                if (ws.ButtonState.Home && !done[6]) translate(maps[1].indexes[6], true, 6);
-                if (ws.ButtonState.Minus && !done[7]) translate(maps[1].indexes[7], true, 7);
-                if (ws.ButtonState.Plus && !done[8]) translate(maps[1].indexes[8], true, 8);
-                if (ws.ButtonState.One && !done[9]) translate(maps[1].indexes[9], true, 9);
-                if (ws.ButtonState.Two && !done[10]) translate(maps[1].indexes[10], true, 10);
-                if (!ws.ButtonState.A && done[0]) translate(maps[1].indexes[0], false, 0);
-                if (!ws.ButtonState.B && done[1]) translate(maps[1].indexes[1], false, 1);
-                if (!ws.ButtonState.Up && done[2]) translate(maps[1].indexes[2], false, 2);
-                if (!ws.ButtonState.Down && done[3]) translate(maps[1].indexes[3], false, 3);
-                if (!ws.ButtonState.Left && done[4]) translate(maps[1].indexes[4], false, 4);
-                if (!ws.ButtonState.Right && done[5]) translate(maps[1].indexes[5], false, 5);
-                if (!ws.ButtonState.Home && done[6]) translate(maps[1].indexes[6], false, 6);
-                if (!ws.ButtonState.Minus && done[7]) translate(maps[1].indexes[7], false, 7);
-                if (!ws.ButtonState.Plus && done[8]) translate(maps[1].indexes[8], false, 8);
-                if (!ws.ButtonState.One && done[9]) translate(maps[1].indexes[9], false, 9);
-                if (!ws.ButtonState.Two && done[10]) translate(maps[1].indexes[10], false, 10);
+                if (ws.ButtonState.A && !done[0]) translate((string)items[maps[1].indexes[0]], true, 0);
+                if (ws.ButtonState.B && !done[1]) translate((string)items[maps[1].indexes[1]], true, 1);
+                if (ws.ButtonState.Up && !done[2]) translate((string)items[maps[1].indexes[2]], true, 2);
+                if (ws.ButtonState.Down && !done[3]) translate((string)items[maps[1].indexes[3]], true, 3);
+                if (ws.ButtonState.Left && !done[4]) translate((string)items[maps[1].indexes[4]], true, 4);
+                if (ws.ButtonState.Right && !done[5]) translate((string)items[maps[1].indexes[5]], true, 5);
+                if (ws.ButtonState.Home && !done[6]) translate((string)items[maps[1].indexes[6]], true, 6);
+                if (ws.ButtonState.Minus && !done[7]) translate((string)items[maps[1].indexes[7]], true, 7);
+                if (ws.ButtonState.Plus && !done[8]) translate((string)items[maps[1].indexes[8]], true, 8);
+                if (ws.ButtonState.One && !done[9]) translate((string)items[maps[1].indexes[9]], true, 9);
+                if (ws.ButtonState.Two && !done[10]) translate((string)items[maps[1].indexes[10]], true, 10);
+                if (!ws.ButtonState.A && done[0]) translate((string)items[maps[1].indexes[0]], false, 0);
+                if (!ws.ButtonState.B && done[1]) translate((string)items[maps[1].indexes[1]], false, 1);
+                if (!ws.ButtonState.Up && done[2]) translate((string)items[maps[1].indexes[2]], false, 2);
+                if (!ws.ButtonState.Down && done[3]) translate((string)items[maps[1].indexes[3]], false, 3);
+                if (!ws.ButtonState.Left && done[4]) translate((string)items[maps[1].indexes[4]], false, 4);
+                if (!ws.ButtonState.Right && done[5]) translate((string)items[maps[1].indexes[5]], false, 5);
+                if (!ws.ButtonState.Home && done[6]) translate((string)items[maps[1].indexes[6]], false, 6);
+                if (!ws.ButtonState.Minus && done[7]) translate((string)items[maps[1].indexes[7]], false, 7);
+                if (!ws.ButtonState.Plus && done[8]) translate((string)items[maps[1].indexes[8]], false, 8);
+                if (!ws.ButtonState.One && done[9]) translate((string)items[maps[1].indexes[9]], false, 9);
+                if (!ws.ButtonState.Two && done[10]) translate((string)items[maps[1].indexes[10]], false, 10);
             }
 
             if (!lastWiiState.ButtonState.A && ws.ButtonState.A && !shifted)
-                translate(maps[0].indexes[0], true, 0);
+                translate((string)items[maps[0].indexes[0]], true, 0);
             if (lastWiiState.ButtonState.A && !ws.ButtonState.A)
-                    translate(maps[0].indexes[0], false, 0);
+                translate((string)items[maps[0].indexes[0]], false, 0);
             lastWiiState.ButtonState.A = ws.ButtonState.A;
 
             if (!lastWiiState.ButtonState.B && ws.ButtonState.B && !shifted)
-                translate(maps[0].indexes[1], true, 1);
+                translate((string)items[maps[0].indexes[1]], true, 1);
             if (lastWiiState.ButtonState.B && !ws.ButtonState.B)
-                    translate(maps[0].indexes[1], false, 1);
+                translate((string)items[maps[0].indexes[1]], false, 1);
             lastWiiState.ButtonState.B = ws.ButtonState.B;
 
             if (!lastWiiState.ButtonState.Up && ws.ButtonState.Up && !shifted)
-                translate(maps[0].indexes[2], true, 2);
+                translate((string)items[maps[0].indexes[2]], true, 2);
             if (lastWiiState.ButtonState.Up && !ws.ButtonState.Up)
-                    translate(maps[0].indexes[2], false, 2);
+                translate((string)items[maps[0].indexes[2]], false, 2);
             lastWiiState.ButtonState.Up = ws.ButtonState.Up;
 
             if (!lastWiiState.ButtonState.Down && ws.ButtonState.Down && !shifted)
-                translate(maps[0].indexes[3], true, 3);
+                translate((string)items[maps[0].indexes[3]], true, 3);
             if (lastWiiState.ButtonState.Down && !ws.ButtonState.Down)
-                    translate(maps[0].indexes[3], false, 3);
+                translate((string)items[maps[0].indexes[3]], false, 3);
             lastWiiState.ButtonState.Down = ws.ButtonState.Down;
 
             if (!lastWiiState.ButtonState.Left && ws.ButtonState.Left && !shifted)
-                translate(maps[0].indexes[4], true, 4);
+                translate((string)items[maps[0].indexes[4]], true, 4);
             if (lastWiiState.ButtonState.Left && !ws.ButtonState.Left)
-                    translate(maps[0].indexes[4], false, 4);
+                translate((string)items[maps[0].indexes[4]], false, 4);
             lastWiiState.ButtonState.Left = ws.ButtonState.Left;
 
             if (!lastWiiState.ButtonState.Right && ws.ButtonState.Right && !shifted)
-                translate(maps[0].indexes[5], true, 5);
+                translate((string)items[maps[0].indexes[5]], true, 5);
             if (lastWiiState.ButtonState.Right && !ws.ButtonState.Right)
-                    translate(maps[0].indexes[5], false, 5);
+                translate((string)items[maps[0].indexes[5]], false, 5);
             lastWiiState.ButtonState.Right = ws.ButtonState.Right;
 
             if (!lastWiiState.ButtonState.Home && ws.ButtonState.Home && !shifted)
-                translate(maps[0].indexes[6], true, 6);
+                translate((string)items[maps[0].indexes[6]], true, 6);
             if (lastWiiState.ButtonState.Home && !ws.ButtonState.Home)
-                    translate(maps[0].indexes[6], false, 6);
+                translate((string)items[maps[0].indexes[6]], false, 6);
             lastWiiState.ButtonState.Home = ws.ButtonState.Home;
 
             if (!lastWiiState.ButtonState.Minus && ws.ButtonState.Minus && !shifted)
-                translate(maps[0].indexes[7], true, 7);
+                translate((string)items[maps[0].indexes[7]], true, 7);
             if (lastWiiState.ButtonState.Minus && !ws.ButtonState.Minus)
-                    translate(maps[0].indexes[7], false, 7);
+                translate((string)items[maps[0].indexes[7]], false, 7);
             lastWiiState.ButtonState.Minus = ws.ButtonState.Minus;
 
             if (!lastWiiState.ButtonState.Plus && ws.ButtonState.Plus && !shifted)
-                translate(maps[0].indexes[8], true, 8);
+                translate((string)items[maps[0].indexes[8]], true, 8);
             if (lastWiiState.ButtonState.Plus && !ws.ButtonState.Plus)
-                    translate(maps[0].indexes[8], false, 8);
+                translate((string)items[maps[0].indexes[8]], false, 8);
             lastWiiState.ButtonState.Plus = ws.ButtonState.Plus;
 
             if (!lastWiiState.ButtonState.One && ws.ButtonState.One && !shifted)
-                translate(maps[0].indexes[9], true, 9);
+                translate((string)items[maps[0].indexes[9]], true, 9);
             if (lastWiiState.ButtonState.One && !ws.ButtonState.One)
-                    translate(maps[0].indexes[9], false, 9);
+                translate((string)items[maps[0].indexes[9]], false, 9);
             lastWiiState.ButtonState.One = ws.ButtonState.One;
 
             if (!lastWiiState.ButtonState.Two && ws.ButtonState.Two && !shifted)
-                translate(maps[0].indexes[10], true, 10);
+                translate((string)items[maps[0].indexes[10]], true, 10);
             if (lastWiiState.ButtonState.Two && !ws.ButtonState.Two)
-                translate(maps[0].indexes[10], false, 10);
+                translate((string)items[maps[0].indexes[10]], false, 10);
             lastWiiState.ButtonState.Two = ws.ButtonState.Two;
 
             //(ws.Battery > 0x64 ? 0x64 : (int)ws.Battery); });
@@ -455,74 +455,74 @@ namespace wiimoteremote
             label1.Text = wm.WiimoteState.ExtensionType.ToString();
         }
 
-        void translate(int i, bool down, int button)
+        void translate(string i, bool down, int button)
         {
-            if (i == 0) {   //Ctrl
+            if (i == "Ctrl") {   //Ctrl
                 if (down) { keybd_event(VK_CONTROL, 0x45, 0, 0); done[button] = true; }
                 else { keybd_event(VK_CONTROL, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 1){    //Alt
+            if (i == "Alt"){    //Alt
                 if (down){ keybd_event(VK_MENU, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_MENU, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 2){    //Shift
+            if (i == "Shift"){    //Shift
                 if (down) {keybd_event(VK_SHIFT, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_SHIFT, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 3){    //Tab
+            if (i == "Tab"){    //Tab
                 if (down){ keybd_event(VK_TAB, 0x45, 0, 0);done[button] = true;}
                 else{ keybd_event(VK_TAB, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 4){    //Enter
+            if (i == "Enter"){    //Enter
                 if (down){ keybd_event(VK_RETURN, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_RETURN, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 5){    //Esc
+            if (i == "Esc"){    //Esc
                 if (down) {keybd_event(VK_ESCAPE, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_ESCAPE, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 6){    //Uparrow
+            if (i == "UpArrow"){    //Uparrow
                 if (down){ keybd_event(VK_UP, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_UP, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 7){    //downarrow
+            if (i == "DownArrow"){    //downarrow
                 if (down){ keybd_event(VK_DOWN, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_DOWN, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 8){    //leftarrow
+            if (i == "LeftArrow"){    //leftarrow
                 if (down){ keybd_event(VK_LEFT, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_LEFT, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 9){    //rightarrow
+            if (i == "RightArrow"){    //rightarrow
                 if (down){ keybd_event(VK_RIGHT, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_RIGHT, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 10){   //home
+            if (i == "Home"){   //home
                 if (down){ keybd_event(VK_HOME, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_HOME, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 11){   //end
+            if (i == "End"){   //end
                 if (down){ keybd_event(VK_END, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_END, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 12){   //delete
+            if (i == "Delete"){   //delete
                 if (down){ keybd_event(VK_DELETE, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_DELETE, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 13){   //pgdown
+            if (i == "PgDown"){   //pgdown
                 if (down){ keybd_event(VK_NEXT, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_NEXT, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 14){   //pgup
+            if (i == "PgUp"){   //pgup
                 if (down){ keybd_event(VK_PRIOR, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_PRIOR, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 15){   //insert
+            if (i == "Insert"){   //insert
                 if (down){ keybd_event(VK_INS, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_INS, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 16){   //printscreen
+            if (i == "PrtScrn"){   //printscreen
                 if (down){ keybd_event(VK_SNAPSHOT, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_SNAPSHOT, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 17){   //backspace
+            if (i == "Backspace"){   //backspace
                 if (down){ keybd_event(VK_BACK, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_BACK, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 18){   //space
+            if (i == "Space"){   //space
                 if (down){ keybd_event(VK_SPACE, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_SPACE, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
-            if (i == 19){   //click
+            if (i == "Click"){   //click
                 if (down) { mouse_event(MOUSEEVENTF_LEFTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0); done[button] = true; }
                 else { mouse_event(MOUSEEVENTF_LEFTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0); done[button] = false; }
             }
-            if (i == 20){   //right click
+            if (i == "RightClick"){   //right click
                 if (down) { mouse_event(MOUSEEVENTF_RIGHTDOWN, Cursor.Position.X, Cursor.Position.Y, 0, 0); done[button] = true; }
                 else { mouse_event(MOUSEEVENTF_RIGHTUP, Cursor.Position.X, Cursor.Position.Y, 0, 0); done[button] = false; }
             }
-            if (i == 21){   //copy
+            if (i == "Copy"){   //copy
                 if (down){
                     keybd_event(VK_CONTROL, 0x45, 0, 0);
                     keybd_event(0x43, 0x45, 0, 0);
@@ -531,7 +531,7 @@ namespace wiimoteremote
                     keybd_event(VK_CONTROL, 0x45, KEYEVENTF_KEYUP, 0);
                     keybd_event(0x43, 0x45, KEYEVENTF_KEYUP, 0);
                     done[button] = false;}}
-            if (i == 22){   //paste
+            if (i == "Paste"){   //paste
                 if (down){
                     keybd_event(VK_CONTROL, 0x45, 0, 0);
                     keybd_event(0x56, 0x45, 0, 0);
@@ -540,7 +540,7 @@ namespace wiimoteremote
                     keybd_event(VK_CONTROL, 0x45, KEYEVENTF_KEYUP, 0);
                     keybd_event(0x56, 0x45, KEYEVENTF_KEYUP, 0);
                     done[button] = false;}}
-            if (i == 23)    //custom
+            if (i == "Custom")    //custom
             {   
                 if (down)
                 {
@@ -552,25 +552,26 @@ namespace wiimoteremote
                 }
                 else{done[button] = false;}
             }
-            if (i == 24) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PLAY)); done[button] = true;}else{done[button] = false;}
-            if (i == 25) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PAUSE)); done[button] = true;}else{done[button] = false;}
-            if (i == 26) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PLAY_PAUSE)); done[button] = true;}else{done[button] = false;}
-            if (i == 27) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_STOP)); done[button] = true;}else{done[button] = false;}
-            if (i == 28) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PREVIOUSTRACK)); done[button] = true;}else{done[button] = false;}
-            if (i == 29) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_NEXTTRACK)); done[button] = true;}else{done[button] = false;}
-            if (i == 30) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_VOLUME_UP)); done[button] = true;}else{done[button] = false;}
-            if (i == 31) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_VOLUME_DOWN)); done[button] = true;}else{done[button] = false;}
-            if (i == 32) if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_VOLUME_MUTE)); done[button] = true;}else{done[button] = false;}
-            if (i == 33) if (down) { shifted = true; done[button] = true; } else { shifted = false; done[button] = false; }   //keyshift
-            if (i == 34){   //speed slow down
+            if (i == "Play") if (down) {SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PLAY)); done[button] = true;}else{done[button] = false;}
+            if (i == "Pause") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PAUSE)); done[button] = true; } else { done[button] = false; }
+            if (i == "Play/Pause") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PLAY_PAUSE)); done[button] = true; } else { done[button] = false; }
+            if (i == "Stop") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_STOP)); done[button] = true; } else { done[button] = false; }
+            if (i == "Prev Track") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_PREVIOUSTRACK)); done[button] = true; } else { done[button] = false; }
+            if (i == "Next Track") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_MEDIA_NEXTTRACK)); done[button] = true; } else { done[button] = false; }
+            if (i == "Vol Up") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_VOLUME_UP)); done[button] = true; } else { done[button] = false; }
+            if (i == "Vol Down") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_VOLUME_DOWN)); done[button] = true; } else { done[button] = false; }
+            if (i == "Vol Mute") if (down) { SendMessage(GetForegroundWindow(), WM_APPCOMMAND, IntPtr.Zero, new IntPtr(APPCOMMAND_VOLUME_MUTE)); done[button] = true; } else { done[button] = false; }
+            if (i == "KeyShift") if (down) { shifted = true; done[button] = true; } else { shifted = false; done[button] = false; }   //keyshift
+            if (i == "Slow")
+            {   //speed slow down
                 if (down){
                     speed = (int)speedbox.Value;
                     speedbox.Value = speedbox.Value / 3;
-                     done[button] = true;}
+                    done[button] = true;}
                 else
                     speedbox.Value = speed;
                     done[button] = false;}
-            if (i == 35) if (down) {checkmouse.Checked = !checkmouse.Checked;  done[button] = true;}else{done[button] = false;}
+            if (i == "MouseCtrl") if (down) {checkmouse.Checked = !checkmouse.Checked;  done[button] = true;}else{done[button] = false;}
 
 
             done[button] = down;
