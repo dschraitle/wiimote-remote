@@ -6,7 +6,13 @@ namespace wiimoteremote
 {
     public class buttonmap
     {
+        /// <summary>
+        /// stores the item names of the comboboxes
+        /// </summary>
         public string[] indexes;
+        /// <summary>
+        /// stores the custom strings for the item boxes
+        /// </summary>
         public string[] custom;
         
         public buttonmap()

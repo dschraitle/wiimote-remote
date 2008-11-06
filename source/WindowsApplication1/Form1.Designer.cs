@@ -28,6 +28,7 @@ namespace wiimoteremote
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.box2 = new System.Windows.Forms.ComboBox();
@@ -46,6 +47,10 @@ namespace wiimoteremote
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.save = new System.Windows.Forms.ToolStripMenuItem();
             this.load = new System.Windows.Forms.ToolStripMenuItem();
+            this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mediaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gomPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.boxplus = new System.Windows.Forms.ComboBox();
@@ -75,10 +80,9 @@ namespace wiimoteremote
             this.zlabel = new System.Windows.Forms.Label();
             this.boxz = new System.Windows.Forms.ComboBox();
             this.shiftlabel = new System.Windows.Forms.Label();
-            this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mediaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gomPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.traycheck = new System.Windows.Forms.CheckBox();
+            this.tray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -251,7 +255,7 @@ namespace wiimoteremote
             this.save.MergeIndex = 0;
             this.save.Name = "save";
             this.save.Padding = new System.Windows.Forms.Padding(0);
-            this.save.Size = new System.Drawing.Size(152, 20);
+            this.save.Size = new System.Drawing.Size(109, 20);
             this.save.Text = "Save";
             this.save.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.save.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
@@ -267,11 +271,41 @@ namespace wiimoteremote
             this.load.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.load.Name = "load";
             this.load.Padding = new System.Windows.Forms.Padding(0);
-            this.load.Size = new System.Drawing.Size(152, 20);
+            this.load.Size = new System.Drawing.Size(109, 20);
             this.load.Text = "Load";
             this.load.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.load.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.load.Click += new System.EventHandler(this.load_Click);
+            // 
+            // presetsToolStripMenuItem
+            // 
+            this.presetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.defaultToolStripMenuItem,
+            this.mediaToolStripMenuItem,
+            this.gomPlayerToolStripMenuItem});
+            this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(55, 17);
+            this.presetsToolStripMenuItem.Text = "Presets";
+            // 
+            // defaultToolStripMenuItem
+            // 
+            this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.defaultToolStripMenuItem.Text = "Default";
+            this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
+            // 
+            // mediaToolStripMenuItem
+            // 
+            this.mediaToolStripMenuItem.Name = "mediaToolStripMenuItem";
+            this.mediaToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.mediaToolStripMenuItem.Text = "Media";
+            // 
+            // gomPlayerToolStripMenuItem
+            // 
+            this.gomPlayerToolStripMenuItem.Name = "gomPlayerToolStripMenuItem";
+            this.gomPlayerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.gomPlayerToolStripMenuItem.Text = "GomPlayer";
+            this.gomPlayerToolStripMenuItem.Click += new System.EventHandler(this.gomPlayerToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
@@ -493,7 +527,7 @@ namespace wiimoteremote
             // 
             this.clabel.AutoSize = true;
             this.clabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.clabel.Location = new System.Drawing.Point(7, 397);
+            this.clabel.Location = new System.Drawing.Point(7, 420);
             this.clabel.Name = "clabel";
             this.clabel.Size = new System.Drawing.Size(23, 24);
             this.clabel.TabIndex = 48;
@@ -503,7 +537,7 @@ namespace wiimoteremote
             // 
             this.boxc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.boxc.FormattingEnabled = true;
-            this.boxc.Location = new System.Drawing.Point(32, 397);
+            this.boxc.Location = new System.Drawing.Point(32, 420);
             this.boxc.Name = "boxc";
             this.boxc.Size = new System.Drawing.Size(77, 21);
             this.boxc.TabIndex = 47;
@@ -513,7 +547,7 @@ namespace wiimoteremote
             // 
             this.zlabel.AutoSize = true;
             this.zlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.zlabel.Location = new System.Drawing.Point(7, 424);
+            this.zlabel.Location = new System.Drawing.Point(7, 447);
             this.zlabel.Name = "zlabel";
             this.zlabel.Size = new System.Drawing.Size(22, 24);
             this.zlabel.TabIndex = 50;
@@ -523,7 +557,7 @@ namespace wiimoteremote
             // 
             this.boxz.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.boxz.FormattingEnabled = true;
-            this.boxz.Location = new System.Drawing.Point(32, 424);
+            this.boxz.Location = new System.Drawing.Point(32, 447);
             this.boxz.Name = "boxz";
             this.boxz.Size = new System.Drawing.Size(77, 21);
             this.boxz.TabIndex = 49;
@@ -540,39 +574,39 @@ namespace wiimoteremote
             this.shiftlabel.Text = "Regular";
             this.shiftlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // presetsToolStripMenuItem
+            // traycheck
             // 
-            this.presetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.defaultToolStripMenuItem,
-            this.mediaToolStripMenuItem,
-            this.gomPlayerToolStripMenuItem});
-            this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
-            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(55, 17);
-            this.presetsToolStripMenuItem.Text = "Presets";
+            this.traycheck.AutoSize = true;
+            this.traycheck.Checked = true;
+            this.traycheck.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.traycheck.Location = new System.Drawing.Point(7, 397);
+            this.traycheck.Name = "traycheck";
+            this.traycheck.Size = new System.Drawing.Size(102, 17);
+            this.traycheck.TabIndex = 52;
+            this.traycheck.Text = "Minimize to Tray";
+            this.traycheck.UseVisualStyleBackColor = true;
             // 
-            // defaultToolStripMenuItem
+            // tray
             // 
-            this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
-            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.defaultToolStripMenuItem.Text = "Default";
+            this.tray.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.tray_MouseDoubleClick);
             // 
-            // mediaToolStripMenuItem
+            // label2
             // 
-            this.mediaToolStripMenuItem.Name = "mediaToolStripMenuItem";
-            this.mediaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.mediaToolStripMenuItem.Text = "Media";
-            // 
-            // gomPlayerToolStripMenuItem
-            // 
-            this.gomPlayerToolStripMenuItem.Name = "gomPlayerToolStripMenuItem";
-            this.gomPlayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.gomPlayerToolStripMenuItem.Text = "GomPlayer";
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(211, 340);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.TabIndex = 53;
+            this.label2.Text = "Speed:";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 505);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.traycheck);
             this.Controls.Add(this.shiftlabel);
             this.Controls.Add(this.zlabel);
             this.Controls.Add(this.boxz);
@@ -614,6 +648,7 @@ namespace wiimoteremote
             this.Controls.Add(this.box2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
@@ -684,6 +719,9 @@ namespace wiimoteremote
         private System.Windows.Forms.ToolStripMenuItem defaultToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mediaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gomPlayerToolStripMenuItem;
+        private System.Windows.Forms.CheckBox traycheck;
+        private System.Windows.Forms.NotifyIcon tray;
+        private System.Windows.Forms.Label label2;
 
 
     }

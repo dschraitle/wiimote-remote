@@ -13,13 +13,6 @@ using WiimoteLib;
 using Microsoft.Win32;
 using System.Xml.Serialization;
 
-
-/*
- * things to add:
- * motion sensor data
- * serialized saving/loading functions
- */
-
 namespace wiimoteremote
 {
     public partial class Form1 : Form
@@ -177,7 +170,6 @@ namespace wiimoteremote
         public buttonmap[] maps = new buttonmap[] { new buttonmap(), new buttonmap() }; //array which holds buttonmaps for regular and shift, more buttonmaps would go in here
         bool shifted = false;   //
         int currentmap = 0;
-        NotifyIcon tray = new NotifyIcon();
 
         public Form1()
         {
@@ -202,6 +194,7 @@ namespace wiimoteremote
                 temp = SerializeFromString<buttonmap[]>((string)ourkey.GetValue("maps"));
                 tb1.Text = (string)ourkey.GetValue("custom");
                 speedbox.Value = decimal.Parse((string)ourkey.GetValue("speed"));
+                traycheck.Checked = bool.Parse((string)ourkey.GetValue("tray"));
             }
             catch (Exception x) { MessageBox.Show(x.ToString()); }
 
@@ -236,9 +229,7 @@ namespace wiimoteremote
             }
             checkmouse.Checked = mouse;
 
-            tray.Visible = false;
             tray.Icon = this.Icon;
-            tray.MouseDoubleClick += new MouseEventHandler(tray_MouseDoubleClick);
             start = false;
         }
 
@@ -276,6 +267,7 @@ namespace wiimoteremote
             //for (int i = 0; i < NUMBOXES; i++) ourkey.SetValue(boxes[i].Name + "custom", custom[i]);
             ourkey.SetValue("custom", tb1.Text);
             ourkey.SetValue("speed", speedbox.Value);
+            ourkey.SetValue("tray", traycheck.Checked);
             ourkey.Close();
         }
 
@@ -663,17 +655,21 @@ namespace wiimoteremote
         /// <param name="e"></param>
         private void load_Click(object sender, EventArgs e)
         {
-            OpenFileDialog opfl = new OpenFileDialog();
-            opfl.Filter = "Special Files (*.sch)|*.sch";
-            if (opfl.ShowDialog() == DialogResult.OK)
+            try
             {
-                TextReader r = new StreamReader(opfl.FileName);
-                XmlSerializer s = new XmlSerializer(typeof(buttonmap[]));
-                maps = (buttonmap[])s.Deserialize(r);
-                r.Close();
-                currentmap = 0;
-                changestate();
-            }            
+                OpenFileDialog opfl = new OpenFileDialog();
+                opfl.Filter = "Special Files (*.sch)|*.sch";
+                if (opfl.ShowDialog() == DialogResult.OK)
+                {
+                    TextReader r = new StreamReader(opfl.FileName);
+                    XmlSerializer s = new XmlSerializer(typeof(buttonmap[]));
+                    maps = (buttonmap[])s.Deserialize(r);
+                    r.Close();
+                    currentmap = 0;
+                    changestate();
+                }
+            }
+            catch (Exception x) { x.ToString(); }
         }
 
         /// <summary>
@@ -792,7 +788,10 @@ namespace wiimoteremote
             mouse = !mouse;
         }
 
-        private void changestate()  //changes boxes to reflect a shifted state or not
+        /// <summary>
+        /// changes boxes to reflect a shifted state or not, or if button maps have been edited
+        /// </summary>
+        private void changestate()
         {
             start = true;
             for (int i = 0; i < NUMBOXES; i++)
@@ -841,11 +840,31 @@ namespace wiimoteremote
 
         private void Form1_SizeChanged(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
+            if (WindowState == FormWindowState.Minimized && traycheck.Checked)
             {
                 tray.Visible = true;
                 this.Hide();
             }
+        }
+
+        private void gomPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            maps[0].indexes = new string[] {"Play/Pause", "KeyShift", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Enter", "Prev Track", "Next Track", "Custom", "Custom", "Slow", "Click", };
+            maps[0].custom = new string[] { "", "", "", "", "", "", "", "", "", "!<", "!>", "", "" };
+            maps[1].indexes = new string[] { "", "", "Custom", "Custom", "Custom", "Custom", "MouseCtrl", "", "", "", "", "", "RightClick" };
+            maps[1].custom = new string[] { "", "", "^{up}", "^{down}", "^{left}", "^{right}", "", "", "", "", "", "", "" };
+            currentmap = 0;
+            changestate();
+        }
+
+        private void defaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            maps[0].indexes = new string[] { "", "KeyShift", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Enter", "Copy", "Paste", "", "", "Slow", "Click", };
+            maps[0].custom = new string[] { "", "", "", "", "", "", "", "", "", "", "", "", "" };
+            maps[1].indexes = new string[] { "", "", "", "", "", "", "MouseCtrl", "", "", "", "", "", "RightClick" };
+            maps[1].custom = new string[] { "", "", "", "", "", "", "", "", "", "", "", "", "" };
+            currentmap = 0;
+            changestate();
         }
     }
 }
