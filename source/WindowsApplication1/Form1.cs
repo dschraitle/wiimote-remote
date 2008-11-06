@@ -164,20 +164,18 @@ namespace wiimoteremote
         WiimoteState lastWiiState = new WiimoteState();//helps with event firing
         #endregion
 
-        public const int NUMBOXES = 13;
-        object[] items = new object[] { "Ctrl", "Alt", "Shift", "Tab", "Enter", "Esc", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Home", "End", "Delete", "PgDown", "PgUp", "Insert", "PrtScrn", "Backspace", "Space", "Click", "RightClick", "Copy", "Paste", "Custom", "Play", "Pause", "Play/Pause", "Stop", "Prev Track", "Next Track", "Vol Up", "Vol Down", "Vol Mute", "KeyShift", "Slow", "MouseCtrl"};
-        string[] custom = new string[NUMBOXES];
-        int[] prevselindex = new int[NUMBOXES];
+        public const int NUMBOXES = 13; //number of editable boxes on form
+        object[] items = new object[] { "", "Custom", "Ctrl", "Alt", "Shift", "Tab", "Enter", "Esc", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Home", "End", "Delete", "PgDown", "PgUp", "Insert", "PrtScrn", "Backspace", "Space", "Click", "RightClick", "Copy", "Paste", "Play", "Pause", "Play/Pause", "Stop", "Prev Track", "Next Track", "Vol Up", "Vol Down", "Vol Mute", "KeyShift", "Slow", "MouseCtrl" };   //items in each combobox, order does not matter anymore
         bool[] done = new bool[NUMBOXES];   //helps shifting know when an action has occured
-        ComboBox[] boxes;
-        bool start = true;
-        bool mouse = false;
-        int speed;
-        Mutex mut = new Mutex();
-        int mouseclickd = MOUSEEVENTF_LEFTDOWN;
+        ComboBox[] boxes;   //array containing all boxes
+        bool start = true;  //signals start of program when all boxes are discombobulated, also comes in handy during other operations where box indexes change and you don't want the changeindex events happening
+        bool mouse = false; //signals mouse control
+        int speed;  //coefficient of axis for mouse control, higher = faster
+        Mutex mut = new Mutex();    //helps synchronous execution
+        int mouseclickd = MOUSEEVENTF_LEFTDOWN; //mouse click values for left clicking
         int mouseclicku = MOUSEEVENTF_LEFTUP;
-        public buttonmap[] maps = new buttonmap[] { new buttonmap(), new buttonmap() };
-        bool shifted = false;
+        public buttonmap[] maps = new buttonmap[] { new buttonmap(), new buttonmap() }; //array which holds buttonmaps for regular and shift, more buttonmaps would go in here
+        bool shifted = false;   //
         int currentmap = 0;
         NotifyIcon tray = new NotifyIcon();
 
@@ -249,6 +247,11 @@ namespace wiimoteremote
             regsave();
         }
 
+        /// <summary>
+        /// replaces map arrays up to given index
+        /// </summary>
+        /// <param name="temp">new map array</param>
+        /// <param name="max">index to replace to</param>
         private void replacemap(buttonmap[] temp, int max)
         {
             for (int i = 0; i < max; i++)
@@ -257,11 +260,12 @@ namespace wiimoteremote
                 maps[1].indexes[i] = temp[1].indexes[i];
                 maps[0].custom[i] = temp[0].custom[i];
                 maps[1].custom[i] = temp[1].custom[i];
-                maps[0].prevselindex[i] = temp[0].prevselindex[i];
-                maps[1].prevselindex[i] = temp[1].prevselindex[i];
             }
         }
 
+        /// <summary>
+        /// saves button data to registry
+        /// </summary>
         private void regsave()
         {
             RegistryKey ourkey = Registry.Users;
@@ -275,6 +279,11 @@ namespace wiimoteremote
             ourkey.Close();
         }
 
+        /// <summary>
+        /// serializes object into xml string
+        /// </summary>
+        /// <param name="obj">object to be serialized</param>
+        /// <returns></returns>
         public static string SerializeToString(object obj)
         {
             XmlSerializer serializer = new XmlSerializer(obj.GetType());
@@ -285,6 +294,12 @@ namespace wiimoteremote
             }
         }
 
+        /// <summary>
+        /// returns type T from serialized xml string
+        /// </summary>
+        /// <typeparam name="T">type to be returned</typeparam>
+        /// <param name="xml">xml serialized string</param>
+        /// <returns></returns>
         public static T SerializeFromString<T>(string xml)
         {
             XmlSerializer serializer = new XmlSerializer(typeof(T));
@@ -295,6 +310,11 @@ namespace wiimoteremote
             }
         }
 
+        /// <summary>
+        /// when wiimote sends updated state information, this function is called
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         void wm_WiimoteChanged(object sender, WiimoteChangedEventArgs args)
         {
             mut.WaitOne();
@@ -314,120 +334,120 @@ namespace wiimoteremote
 
                 if (shifted)
                 {
-                    if (ws.NunchukState.C && !done[11]) translate((string)items[maps[1].indexes[11]], true, 11);
-                    if (ws.NunchukState.Z && !done[12]) translate((string)items[maps[1].indexes[12]], true, 12);
-                    if (!ws.NunchukState.C && done[11]) translate((string)items[maps[1].indexes[11]], false, 11);
-                    if (!ws.NunchukState.Z && done[12]) translate((string)items[maps[1].indexes[12]], false, 12);
+                    if (ws.NunchukState.C && !done[11]) translate(maps[1].indexes[11], true, 11);
+                    if (ws.NunchukState.Z && !done[12]) translate(maps[1].indexes[12], true, 12);
+                    if (!ws.NunchukState.C && done[11]) translate(maps[1].indexes[11], false, 11);
+                    if (!ws.NunchukState.Z && done[12]) translate(maps[1].indexes[12], false, 12);
                 }
 
 
                 if (!lastWiiState.NunchukState.C && ws.NunchukState.C && !shifted)
-                    translate((string)items[maps[0].indexes[11]], true, 11);
+                    translate(maps[0].indexes[11], true, 11);
                 if (lastWiiState.NunchukState.C && !ws.NunchukState.C)
                 {
-                    translate((string)items[maps[0].indexes[11]], false, 11);
+                    translate(maps[0].indexes[11], false, 11);
                 }
                 lastWiiState.NunchukState.C = ws.NunchukState.C;
 
                 if (!lastWiiState.NunchukState.Z && ws.NunchukState.Z && !shifted)
-                    translate((string)items[maps[0].indexes[12]], true, 12);
+                    translate(maps[0].indexes[12], true, 12);
                 if (lastWiiState.NunchukState.Z && !ws.NunchukState.Z)
                 {
-                    translate((string)items[maps[0].indexes[12]], false, 12);
+                    translate(maps[0].indexes[12], false, 12);
                 }
                 lastWiiState.NunchukState.Z = ws.NunchukState.Z;
             }
 
             if (shifted)
             {
-                if (ws.ButtonState.A && !done[0]) translate((string)items[maps[1].indexes[0]], true, 0);
-                if (ws.ButtonState.B && !done[1]) translate((string)items[maps[1].indexes[1]], true, 1);
-                if (ws.ButtonState.Up && !done[2]) translate((string)items[maps[1].indexes[2]], true, 2);
-                if (ws.ButtonState.Down && !done[3]) translate((string)items[maps[1].indexes[3]], true, 3);
-                if (ws.ButtonState.Left && !done[4]) translate((string)items[maps[1].indexes[4]], true, 4);
-                if (ws.ButtonState.Right && !done[5]) translate((string)items[maps[1].indexes[5]], true, 5);
-                if (ws.ButtonState.Home && !done[6]) translate((string)items[maps[1].indexes[6]], true, 6);
-                if (ws.ButtonState.Minus && !done[7]) translate((string)items[maps[1].indexes[7]], true, 7);
-                if (ws.ButtonState.Plus && !done[8]) translate((string)items[maps[1].indexes[8]], true, 8);
-                if (ws.ButtonState.One && !done[9]) translate((string)items[maps[1].indexes[9]], true, 9);
-                if (ws.ButtonState.Two && !done[10]) translate((string)items[maps[1].indexes[10]], true, 10);
-                if (!ws.ButtonState.A && done[0]) translate((string)items[maps[1].indexes[0]], false, 0);
-                if (!ws.ButtonState.B && done[1]) translate((string)items[maps[1].indexes[1]], false, 1);
-                if (!ws.ButtonState.Up && done[2]) translate((string)items[maps[1].indexes[2]], false, 2);
-                if (!ws.ButtonState.Down && done[3]) translate((string)items[maps[1].indexes[3]], false, 3);
-                if (!ws.ButtonState.Left && done[4]) translate((string)items[maps[1].indexes[4]], false, 4);
-                if (!ws.ButtonState.Right && done[5]) translate((string)items[maps[1].indexes[5]], false, 5);
-                if (!ws.ButtonState.Home && done[6]) translate((string)items[maps[1].indexes[6]], false, 6);
-                if (!ws.ButtonState.Minus && done[7]) translate((string)items[maps[1].indexes[7]], false, 7);
-                if (!ws.ButtonState.Plus && done[8]) translate((string)items[maps[1].indexes[8]], false, 8);
-                if (!ws.ButtonState.One && done[9]) translate((string)items[maps[1].indexes[9]], false, 9);
-                if (!ws.ButtonState.Two && done[10]) translate((string)items[maps[1].indexes[10]], false, 10);
+                if (ws.ButtonState.A && !done[0]) translate(maps[1].indexes[0], true, 0);
+                if (ws.ButtonState.B && !done[1]) translate(maps[1].indexes[1], true, 1);
+                if (ws.ButtonState.Up && !done[2]) translate(maps[1].indexes[2], true, 2);
+                if (ws.ButtonState.Down && !done[3]) translate(maps[1].indexes[3], true, 3);
+                if (ws.ButtonState.Left && !done[4]) translate(maps[1].indexes[4], true, 4);
+                if (ws.ButtonState.Right && !done[5]) translate(maps[1].indexes[5], true, 5);
+                if (ws.ButtonState.Home && !done[6]) translate(maps[1].indexes[6], true, 6);
+                if (ws.ButtonState.Minus && !done[7]) translate(maps[1].indexes[7], true, 7);
+                if (ws.ButtonState.Plus && !done[8]) translate(maps[1].indexes[8], true, 8);
+                if (ws.ButtonState.One && !done[9]) translate(maps[1].indexes[9], true, 9);
+                if (ws.ButtonState.Two && !done[10]) translate(maps[1].indexes[10], true, 10);
+                if (!ws.ButtonState.A && done[0]) translate(maps[1].indexes[0], false, 0);
+                if (!ws.ButtonState.B && done[1]) translate(maps[1].indexes[1], false, 1);
+                if (!ws.ButtonState.Up && done[2]) translate(maps[1].indexes[2], false, 2);
+                if (!ws.ButtonState.Down && done[3]) translate(maps[1].indexes[3], false, 3);
+                if (!ws.ButtonState.Left && done[4]) translate(maps[1].indexes[4], false, 4);
+                if (!ws.ButtonState.Right && done[5]) translate(maps[1].indexes[5], false, 5);
+                if (!ws.ButtonState.Home && done[6]) translate(maps[1].indexes[6], false, 6);
+                if (!ws.ButtonState.Minus && done[7]) translate(maps[1].indexes[7], false, 7);
+                if (!ws.ButtonState.Plus && done[8]) translate(maps[1].indexes[8], false, 8);
+                if (!ws.ButtonState.One && done[9]) translate(maps[1].indexes[9], false, 9);
+                if (!ws.ButtonState.Two && done[10]) translate(maps[1].indexes[10], false, 10);
             }
 
             if (!lastWiiState.ButtonState.A && ws.ButtonState.A && !shifted)
-                translate((string)items[maps[0].indexes[0]], true, 0);
+                translate(maps[0].indexes[0], true, 0);
             if (lastWiiState.ButtonState.A && !ws.ButtonState.A)
-                translate((string)items[maps[0].indexes[0]], false, 0);
+                translate(maps[0].indexes[0], false, 0);
             lastWiiState.ButtonState.A = ws.ButtonState.A;
 
             if (!lastWiiState.ButtonState.B && ws.ButtonState.B && !shifted)
-                translate((string)items[maps[0].indexes[1]], true, 1);
+                translate(maps[0].indexes[1], true, 1);
             if (lastWiiState.ButtonState.B && !ws.ButtonState.B)
-                translate((string)items[maps[0].indexes[1]], false, 1);
+                translate(maps[0].indexes[1], false, 1);
             lastWiiState.ButtonState.B = ws.ButtonState.B;
 
             if (!lastWiiState.ButtonState.Up && ws.ButtonState.Up && !shifted)
-                translate((string)items[maps[0].indexes[2]], true, 2);
+                translate(maps[0].indexes[2], true, 2);
             if (lastWiiState.ButtonState.Up && !ws.ButtonState.Up)
-                translate((string)items[maps[0].indexes[2]], false, 2);
+                translate(maps[0].indexes[2], false, 2);
             lastWiiState.ButtonState.Up = ws.ButtonState.Up;
 
             if (!lastWiiState.ButtonState.Down && ws.ButtonState.Down && !shifted)
-                translate((string)items[maps[0].indexes[3]], true, 3);
+                translate(maps[0].indexes[3], true, 3);
             if (lastWiiState.ButtonState.Down && !ws.ButtonState.Down)
-                translate((string)items[maps[0].indexes[3]], false, 3);
+                translate(maps[0].indexes[3], false, 3);
             lastWiiState.ButtonState.Down = ws.ButtonState.Down;
 
             if (!lastWiiState.ButtonState.Left && ws.ButtonState.Left && !shifted)
-                translate((string)items[maps[0].indexes[4]], true, 4);
+                translate(maps[0].indexes[4], true, 4);
             if (lastWiiState.ButtonState.Left && !ws.ButtonState.Left)
-                translate((string)items[maps[0].indexes[4]], false, 4);
+                translate(maps[0].indexes[4], false, 4);
             lastWiiState.ButtonState.Left = ws.ButtonState.Left;
 
             if (!lastWiiState.ButtonState.Right && ws.ButtonState.Right && !shifted)
-                translate((string)items[maps[0].indexes[5]], true, 5);
+                translate(maps[0].indexes[5], true, 5);
             if (lastWiiState.ButtonState.Right && !ws.ButtonState.Right)
-                translate((string)items[maps[0].indexes[5]], false, 5);
+                translate(maps[0].indexes[5], false, 5);
             lastWiiState.ButtonState.Right = ws.ButtonState.Right;
 
             if (!lastWiiState.ButtonState.Home && ws.ButtonState.Home && !shifted)
-                translate((string)items[maps[0].indexes[6]], true, 6);
+                translate(maps[0].indexes[6], true, 6);
             if (lastWiiState.ButtonState.Home && !ws.ButtonState.Home)
-                translate((string)items[maps[0].indexes[6]], false, 6);
+                translate(maps[0].indexes[6], false, 6);
             lastWiiState.ButtonState.Home = ws.ButtonState.Home;
 
             if (!lastWiiState.ButtonState.Minus && ws.ButtonState.Minus && !shifted)
-                translate((string)items[maps[0].indexes[7]], true, 7);
+                translate(maps[0].indexes[7], true, 7);
             if (lastWiiState.ButtonState.Minus && !ws.ButtonState.Minus)
-                translate((string)items[maps[0].indexes[7]], false, 7);
+                translate(maps[0].indexes[7], false, 7);
             lastWiiState.ButtonState.Minus = ws.ButtonState.Minus;
 
             if (!lastWiiState.ButtonState.Plus && ws.ButtonState.Plus && !shifted)
-                translate((string)items[maps[0].indexes[8]], true, 8);
+                translate(maps[0].indexes[8], true, 8);
             if (lastWiiState.ButtonState.Plus && !ws.ButtonState.Plus)
-                translate((string)items[maps[0].indexes[8]], false, 8);
+                translate(maps[0].indexes[8], false, 8);
             lastWiiState.ButtonState.Plus = ws.ButtonState.Plus;
 
             if (!lastWiiState.ButtonState.One && ws.ButtonState.One && !shifted)
-                translate((string)items[maps[0].indexes[9]], true, 9);
+                translate(maps[0].indexes[9], true, 9);
             if (lastWiiState.ButtonState.One && !ws.ButtonState.One)
-                translate((string)items[maps[0].indexes[9]], false, 9);
+                translate(maps[0].indexes[9], false, 9);
             lastWiiState.ButtonState.One = ws.ButtonState.One;
 
             if (!lastWiiState.ButtonState.Two && ws.ButtonState.Two && !shifted)
-                translate((string)items[maps[0].indexes[10]], true, 10);
+                translate(maps[0].indexes[10], true, 10);
             if (lastWiiState.ButtonState.Two && !ws.ButtonState.Two)
-                translate((string)items[maps[0].indexes[10]], false, 10);
+                translate(maps[0].indexes[10], false, 10);
             lastWiiState.ButtonState.Two = ws.ButtonState.Two;
 
             //(ws.Battery > 0x64 ? 0x64 : (int)ws.Battery); });
@@ -438,6 +458,11 @@ namespace wiimoteremote
             mut.ReleaseMutex(); 
         }
 
+        /// <summary>
+        /// when extension is plugged in or unplugged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         void wm_ExtensionChanged(object sender, WiimoteExtensionChangedEventArgs args)
         {
             //if extension attached, enable it
@@ -460,6 +485,12 @@ namespace wiimoteremote
             label1.Text = wm.WiimoteState.ExtensionType.ToString();
         }
 
+        /// <summary>
+        /// translates index of boxes into appropriate function
+        /// </summary>
+        /// <param name="i">selected item of corresponding combobox</param>
+        /// <param name="down">button pressed down</param>
+        /// <param name="button">index of box in boxes array</param>
         void translate(string i, bool down, int button)
         {
             if (i == "Ctrl") {   //Ctrl
@@ -582,6 +613,11 @@ namespace wiimoteremote
             done[button] = down;
         }
 
+        /// <summary>
+        /// connects wiimote (buggy)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void connectbutton_Click(object sender, EventArgs e)
         {
             try
@@ -601,6 +637,11 @@ namespace wiimoteremote
 
         }
 
+        /// <summary>
+        /// saves button configurations to a file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void save_Click(object sender, EventArgs e)
         {
             SaveFileDialog svfl = new SaveFileDialog();
@@ -614,6 +655,12 @@ namespace wiimoteremote
             }
         }
 
+        /// <summary>
+        /// load button mappings file into program
+        /// file must be an xml serialized file created from save function
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void load_Click(object sender, EventArgs e)
         {
             OpenFileDialog opfl = new OpenFileDialog();
@@ -629,37 +676,47 @@ namespace wiimoteremote
             }            
         }
 
+        /// <summary>
+        /// sets the values of mouse down and up for when mouse clicks occur, such as changing to right click and back
+        /// </summary>
+        /// <param name="down">value of mouse down</param>
+        /// <param name="up">value of mouse up</param>
         void setclick(int down, int up)
         {
             mouseclickd = down;
             mouseclicku = up;
         }
-
-        void customize(ComboBox box, int i)
+        
+        ///<summary>
+        ///every box does this function when it changes, for item specific things. 
+        ///</summary>
+        ///<param name="box">the combobox being changed</param>
+        ///<param name="i">the index of the box in the boxes array</param>
+        void customize(ComboBox box, int i) 
         {
-            if (currentmap == 1 && box.SelectedIndex == 33)  //check to make sure shift isn't used in shifted state
+            if (currentmap == 1 && (string)box.SelectedItem == "KeyShift")  //check to make sure shift isn't used in shifted state
             {
-                box.SelectedIndex = maps[currentmap].prevselindex[i];
+                box.SelectedItem = maps[currentmap].indexes[i];
                 return;
             }
-            if (box.SelectedIndex == 23 && maps[currentmap].prevselindex[i] != 23 && !start)
+            if (box.SelectedIndex == 1 && maps[currentmap].indexes[i] != "Custom" && !start)
             {
-                box.Items.RemoveAt(23);
-                box.Items.Insert(23, tb1.Text);
+                start = true;
+                box.Items.RemoveAt(1);
+                box.Items.Insert(1, tb1.Text);
                 maps[currentmap].custom[i] = tb1.Text;
-                maps[currentmap].prevselindex[i] = 23;
+                maps[currentmap].indexes[i] = "Custom";
                 box.SelectedItem = tb1.Text;
+                start = false;
             }
-            if (box.SelectedIndex != 23 && maps[currentmap].prevselindex[i] == 23)
+            else if (box.SelectedIndex != 1 && maps[currentmap].indexes[i] == "Custom")
             {
-                box.Items.RemoveAt(23);
-                box.Items.Insert(23, "Custom");
+                box.Items.RemoveAt(1);
+                box.Items.Insert(1, "Custom");
+                maps[currentmap].indexes[i] = (string)box.SelectedItem;
             }
-            if (!start)
-            {
-                maps[currentmap].prevselindex[i] = maps[currentmap].indexes[i];
-                maps[currentmap].indexes[i] = box.SelectedIndex;
-            }
+            else if (!start)
+                maps[currentmap].indexes[i] = (string)box.SelectedItem;
         }
 
         #region events
@@ -737,20 +794,26 @@ namespace wiimoteremote
 
         private void changestate()  //changes boxes to reflect a shifted state or not
         {
+            start = true;
             for (int i = 0; i < NUMBOXES; i++)
             {
                 if (!boxes[i].Enabled)
                     boxes[i].Enabled = true;
-                if (currentmap == 1 && maps[0].indexes[i] == 33)
+                if (currentmap == 1 && maps[0].indexes[i] == "KeyShift")
                     boxes[i].Enabled = false;
-                boxes[i].Items.RemoveAt(23);
-                if (maps[currentmap].indexes[i] == 23)
+                boxes[i].Items.RemoveAt(1);
+                if (maps[currentmap].indexes[i] == "Custom")
                 {
-                    boxes[i].Items.Insert(23, maps[currentmap].custom[i]);
+                    boxes[i].Items.Insert(1, maps[currentmap].custom[i]);
+                    boxes[i].SelectedIndex = 1;
                 }
-                else boxes[i].Items.Insert(23, "Custom");
-                boxes[i].SelectedIndex = maps[currentmap].indexes[i];
+                else
+                {
+                    boxes[i].Items.Insert(1, "Custom");
+                    boxes[i].SelectedItem = maps[currentmap].indexes[i];
+                }
             }
+            start = false;
         }
 
         private void shiftbutton_Click(object sender, EventArgs e)

@@ -75,6 +75,10 @@ namespace wiimoteremote
             this.zlabel = new System.Windows.Forms.Label();
             this.boxz = new System.Windows.Forms.ComboBox();
             this.shiftlabel = new System.Windows.Forms.Label();
+            this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mediaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gomPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -215,7 +219,8 @@ namespace wiimoteremote
             this.menuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(0);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.presetsToolStripMenuItem});
             this.menuStrip1.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.Flow;
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -246,7 +251,7 @@ namespace wiimoteremote
             this.save.MergeIndex = 0;
             this.save.Name = "save";
             this.save.Padding = new System.Windows.Forms.Padding(0);
-            this.save.Size = new System.Drawing.Size(109, 20);
+            this.save.Size = new System.Drawing.Size(152, 20);
             this.save.Text = "Save";
             this.save.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.save.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
@@ -262,7 +267,7 @@ namespace wiimoteremote
             this.load.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.load.Name = "load";
             this.load.Padding = new System.Windows.Forms.Padding(0);
-            this.load.Size = new System.Drawing.Size(109, 20);
+            this.load.Size = new System.Drawing.Size(152, 20);
             this.load.Text = "Load";
             this.load.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.load.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
@@ -535,6 +540,34 @@ namespace wiimoteremote
             this.shiftlabel.Text = "Regular";
             this.shiftlabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // presetsToolStripMenuItem
+            // 
+            this.presetsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.defaultToolStripMenuItem,
+            this.mediaToolStripMenuItem,
+            this.gomPlayerToolStripMenuItem});
+            this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(55, 17);
+            this.presetsToolStripMenuItem.Text = "Presets";
+            // 
+            // defaultToolStripMenuItem
+            // 
+            this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.defaultToolStripMenuItem.Text = "Default";
+            // 
+            // mediaToolStripMenuItem
+            // 
+            this.mediaToolStripMenuItem.Name = "mediaToolStripMenuItem";
+            this.mediaToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.mediaToolStripMenuItem.Text = "Media";
+            // 
+            // gomPlayerToolStripMenuItem
+            // 
+            this.gomPlayerToolStripMenuItem.Name = "gomPlayerToolStripMenuItem";
+            this.gomPlayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gomPlayerToolStripMenuItem.Text = "GomPlayer";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -647,6 +680,10 @@ namespace wiimoteremote
         private System.Windows.Forms.Label zlabel;
         private System.Windows.Forms.ComboBox boxz;
         private System.Windows.Forms.Label shiftlabel;
+        private System.Windows.Forms.ToolStripMenuItem presetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defaultToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mediaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gomPlayerToolStripMenuItem;
 
 
     }
