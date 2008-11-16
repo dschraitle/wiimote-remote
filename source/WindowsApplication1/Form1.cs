@@ -170,9 +170,12 @@ namespace wiimoteremote
         public buttonmap[] maps = new buttonmap[] { new buttonmap(), new buttonmap() }; //array which holds buttonmaps for regular and shift, more buttonmaps would go in here
         bool shifted = false;   //
         int currentmap = 0;
+        string incomingfile = "";
 
-        public Form1()
+        public Form1(string[] args)
         {
+            if (args.Length > 0)
+                incomingfile = args[0];
             InitializeComponent();
         }
 
@@ -195,6 +198,7 @@ namespace wiimoteremote
                 tb1.Text = (string)ourkey.GetValue("custom");
                 speedbox.Value = decimal.Parse((string)ourkey.GetValue("speed"));
                 traycheck.Checked = bool.Parse((string)ourkey.GetValue("tray"));
+                ourkey.Close();
             }
             catch (Exception x) { MessageBox.Show(x.ToString()); }
 
@@ -230,6 +234,9 @@ namespace wiimoteremote
             checkmouse.Checked = mouse;
 
             tray.Icon = this.Icon;
+
+            if (incomingfile != "") //if there is a file specified at launch, load it into the buttonmaps
+                loadfile(incomingfile);
             start = false;
         }
 
@@ -263,8 +270,6 @@ namespace wiimoteremote
             ourkey = ourkey.CreateSubKey(@".DEFAULT\Software\Schraitle\Remote");
             ourkey.OpenSubKey(@".DEFAULT\Software\Schraitle\Remote", true);
             ourkey.SetValue("maps", SerializeToString(maps));
-            //foreach (ComboBox box in boxes) ourkey.SetValue(box.Name, box.SelectedIndex);
-            //for (int i = 0; i < NUMBOXES; i++) ourkey.SetValue(boxes[i].Name + "custom", custom[i]);
             ourkey.SetValue("custom", tb1.Text);
             ourkey.SetValue("speed", speedbox.Value);
             ourkey.SetValue("tray", traycheck.Checked);
@@ -655,21 +660,34 @@ namespace wiimoteremote
         /// <param name="e"></param>
         private void load_Click(object sender, EventArgs e)
         {
-            try
-            {
                 OpenFileDialog opfl = new OpenFileDialog();
                 opfl.Filter = "Special Files (*.sch)|*.sch";
                 if (opfl.ShowDialog() == DialogResult.OK)
-                {
-                    TextReader r = new StreamReader(opfl.FileName);
-                    XmlSerializer s = new XmlSerializer(typeof(buttonmap[]));
-                    maps = (buttonmap[])s.Deserialize(r);
-                    r.Close();
-                    currentmap = 0;
-                    changestate();
-                }
+                    loadfile(opfl.FileName);
+        }
+
+        /// <summary>
+        /// loads file into buttonmap
+        /// </summary>
+        /// <param name="file">file to open</param>
+        private void loadfile(string file)
+        {
+            buttonmap[] temp = maps;
+            try
+            {
+                TextReader r = new StreamReader(file);
+                XmlSerializer s = new XmlSerializer(typeof(buttonmap[]));
+                maps = (buttonmap[])s.Deserialize(r);
+                r.Close();
+                currentmap = 0;
+                changestate();
             }
-            catch (Exception x) { x.ToString(); }
+            catch (Exception x)
+            {
+                MessageBox.Show("the file:\n" + file + "\n is not a supported type, or it is from a previous version");
+                x.ToString();
+                maps = temp;
+            }
         }
 
         /// <summary>
