@@ -50,19 +50,19 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>pPf/uGgdcVq4zNKP9Ev/H2klcMw=</dsig:DigestValue>
+        <dsig:DigestValue>kya5iXx/g4n00Skxz164fyPD5IU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="111616">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="111104">
       <assemblyIdentity name="WiimoteRemote" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>4WPKtPu0A0KbZDZ8jKe38konpt4=</dsig:DigestValue>
+        <dsig:DigestValue>+QPRZwJLZcb+W8U8lrmshrdGqQk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
