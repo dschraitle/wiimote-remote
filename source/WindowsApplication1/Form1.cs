@@ -171,6 +171,7 @@ namespace wiimoteremote
         bool shifted = false;   //
         int currentmap = 0;
         string incomingfile = "";
+        ToolTip label12tip = new ToolTip();
 
         public Form1(string[] args)
         {
@@ -181,6 +182,7 @@ namespace wiimoteremote
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            label12tip.SetToolTip(label12, "Shift: +\nCtrl:  ^\nAlt:   %");
             for (int i = 0; i < NUMBOXES; i++)
                 done[i] = true;
             boxes = new ComboBox[] {boxa, boxb, boxup, boxdown, boxleft, boxright, boxhome, boxminus, boxplus, box1, box2, boxc, boxz};
@@ -867,8 +869,8 @@ namespace wiimoteremote
 
         private void gomPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            maps[0].indexes = new string[] {"Play/Pause", "KeyShift", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Enter", "Prev Track", "Next Track", "Custom", "Custom", "Slow", "Click", };
-            maps[0].custom = new string[] { "", "", "", "", "", "", "", "", "", "!<", "!>", "", "" };
+            maps[0].indexes = new string[] {"Play/Pause", "KeyShift", "UpArrow", "DownArrow", "LeftArrow", "RightArrow", "Enter", "PgUp", "PgDown", "Custom", "Custom", "Slow", "Click", };
+            maps[0].custom = new string[] { "", "", "", "", "", "", "", "", "", "<", ">", "", "" };
             maps[1].indexes = new string[] { "", "", "Custom", "Custom", "Custom", "Custom", "MouseCtrl", "", "", "", "", "", "RightClick" };
             maps[1].custom = new string[] { "", "", "^{up}", "^{down}", "^{left}", "^{right}", "", "", "", "", "", "", "" };
             currentmap = 0;
