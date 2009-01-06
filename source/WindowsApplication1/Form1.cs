@@ -172,6 +172,7 @@ namespace wiimoteremote
         int currentmap = 0;
         string incomingfile = "";
         ToolTip label12tip = new ToolTip();
+        bool remotemouse = false;
 
         public Form1(string[] args)
         {
@@ -318,6 +319,19 @@ namespace wiimoteremote
         {
             mut.WaitOne();
             WiimoteState ws = args.WiimoteState;
+
+            if (remotemouse)
+            {
+                double doublex = Math.Round(Convert.ToDouble(ws.AccelState.Values.X * (int)speedbox.Value), 0);
+                double doubley = Math.Round(Convert.ToDouble(ws.AccelState.Values.Y * -1 * (int)speedbox.Value), 0);
+                int X = int.Parse(doublex.ToString());
+                int Y = int.Parse(doubley.ToString());
+                if (ws.AccelState.Values.Y < .012 && ws.AccelState.Values.Y > -.012)
+                    Y = 0;
+                if (ws.AccelState.Values.X < .012 && ws.AccelState.Values.X > -.012)
+                    X = 0;
+                Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y + Y);
+            }
 
             if (mouse)
             {
@@ -804,8 +818,13 @@ namespace wiimoteremote
 
         private void checkmouse_CheckedChanged(object sender, EventArgs e)
         {
-            if(!start)
-            mouse = !mouse;
+            if (!start)
+            {
+                if (wm.WiimoteState.ExtensionType != ExtensionType.Nunchuk)
+                    remotemouse = !remotemouse;
+                else
+                    mouse = !mouse;
+            }
         }
 
         /// <summary>
