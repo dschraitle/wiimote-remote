@@ -319,7 +319,6 @@ namespace wiimoteremote
         {
             mut.WaitOne();
             WiimoteState ws = args.WiimoteState;
-
             if (remotemouse)
             {
                 double doublex = Math.Round(Convert.ToDouble(ws.AccelState.Values.X * (int)speedbox.Value), 0);
@@ -330,7 +329,7 @@ namespace wiimoteremote
                     Y = 0;
                 if (ws.AccelState.Values.X < .012 && ws.AccelState.Values.X > -.012)
                     X = 0;
-                Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y + Y);
+                Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y - Y);
             }
 
             if (mouse)
@@ -821,7 +820,10 @@ namespace wiimoteremote
             if (!start)
             {
                 if (wm.WiimoteState.ExtensionType != ExtensionType.Nunchuk)
+                {
                     remotemouse = !remotemouse;
+                    wm.SetReportType(InputReport.ButtonsAccel, true);
+                }
                 else
                     mouse = !mouse;
             }
