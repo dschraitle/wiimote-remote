@@ -483,6 +483,7 @@ namespace wiimoteremote
                 if (wm.WiimoteState.ExtensionType.ToString() == "Nunchuk")
                 {
                     mouse = true;
+                    remotemouse = false;
                     wm.SetReportType(InputReport.ButtonsExtension, true);
                 }
             }
@@ -906,6 +907,22 @@ namespace wiimoteremote
             maps[1].custom = new string[] { "", "", "", "", "", "", "", "", "", "", "", "", "" };
             currentmap = 0;
             changestate();
+        }
+
+        private void Form1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        private void Form1_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] dropped = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            if (dropped[0].Substring(dropped[0].Length - 4, 4).ToLower() == ".sch")
+                loadfile(dropped[0]);
         }
     }
 }
