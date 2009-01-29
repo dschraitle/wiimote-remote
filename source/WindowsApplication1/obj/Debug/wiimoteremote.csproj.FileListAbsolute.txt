@@ -40,3 +40,4 @@ F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Debug\wiim
 F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Debug\wiimoteremote.csproj.GenerateResource.Cache
 F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.exe.manifest
 F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.application
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.TrustInfo.xml

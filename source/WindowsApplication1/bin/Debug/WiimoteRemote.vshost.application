@@ -4,14 +4,14 @@
   <description asmv2:publisher="WiimoteRemote" asmv2:product="WiimoteRemote" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <deployment install="true" mapFileExtensions="true" />
   <dependency>
-    <dependentAssembly dependencyType="install" codebase="WiimoteRemote.exe.manifest" size="6071">
+    <dependentAssembly dependencyType="install" codebase="WiimoteRemote.exe.manifest" size="6124">
       <assemblyIdentity name="WiimoteRemote.exe" version="1.0.2.1" publicKeyToken="0000000000000000" language="neutral" processorArchitecture="msil" type="win32" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>K69X4DZ4/Uq0lf4Bakcc638veEk=</dsig:DigestValue>
+        <dsig:DigestValue>KAhbLjqrft89JjtggPKZFD0Jdb8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
