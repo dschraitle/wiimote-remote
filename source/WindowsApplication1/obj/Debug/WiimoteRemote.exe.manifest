@@ -64,14 +64,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="112128">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="112640">
       <assemblyIdentity name="WiimoteRemote" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>/pgGPzqpT+XHaGygBzFKL778EAk=</dsig:DigestValue>
+        <dsig:DigestValue>YkPD2iBXqFy5cvoPMLvy5gmAXt4=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -173,6 +173,7 @@ namespace wiimoteremote
         string incomingfile = "";
         ToolTip label12tip = new ToolTip();
         bool remotemouse = false;
+        bool remotemouse2 = false;
 
         public Form1(string[] args)
         {
