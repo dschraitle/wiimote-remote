@@ -47,6 +47,7 @@ namespace wiimoteremote
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.save = new System.Windows.Forms.ToolStripMenuItem();
             this.load = new System.Windows.Forms.ToolStripMenuItem();
+            this.startminimized = new System.Windows.Forms.ToolStripMenuItem();
             this.presetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gomPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,10 +83,21 @@ namespace wiimoteremote
             this.traycheck = new System.Windows.Forms.CheckBox();
             this.tray = new System.Windows.Forms.NotifyIcon(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.repeatbox = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.led1 = new System.Windows.Forms.PictureBox();
+            this.led2 = new System.Windows.Forms.PictureBox();
+            this.led3 = new System.Windows.Forms.PictureBox();
+            this.led4 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speedbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repeatbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led4)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -238,7 +250,8 @@ namespace wiimoteremote
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.save,
-            this.load});
+            this.load,
+            this.startminimized});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 17);
             this.fileToolStripMenuItem.Text = "File";
@@ -254,7 +267,7 @@ namespace wiimoteremote
             this.save.MergeIndex = 0;
             this.save.Name = "save";
             this.save.Padding = new System.Windows.Forms.Padding(0);
-            this.save.Size = new System.Drawing.Size(109, 20);
+            this.save.Size = new System.Drawing.Size(157, 20);
             this.save.Text = "Save";
             this.save.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this.save.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
@@ -270,11 +283,17 @@ namespace wiimoteremote
             this.load.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.load.Name = "load";
             this.load.Padding = new System.Windows.Forms.Padding(0);
-            this.load.Size = new System.Drawing.Size(109, 20);
+            this.load.Size = new System.Drawing.Size(157, 20);
             this.load.Text = "Load";
             this.load.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.load.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             this.load.Click += new System.EventHandler(this.load_Click);
+            // 
+            // startminimized
+            // 
+            this.startminimized.Name = "startminimized";
+            this.startminimized.Size = new System.Drawing.Size(157, 22);
+            this.startminimized.Text = "Start Minimized";
             // 
             // presetsToolStripMenuItem
             // 
@@ -484,9 +503,9 @@ namespace wiimoteremote
             // 
             // speedbox
             // 
-            this.speedbox.Location = new System.Drawing.Point(252, 338);
+            this.speedbox.Location = new System.Drawing.Point(243, 403);
             this.speedbox.Name = "speedbox";
-            this.speedbox.Size = new System.Drawing.Size(46, 20);
+            this.speedbox.Size = new System.Drawing.Size(36, 20);
             this.speedbox.TabIndex = 44;
             this.speedbox.Value = new decimal(new int[] {
             30,
@@ -585,12 +604,81 @@ namespace wiimoteremote
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(211, 340);
+            this.label2.Location = new System.Drawing.Point(161, 405);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 13);
+            this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 53;
-            this.label2.Text = "Speed:";
+            this.label2.Text = "Mouse Speed:";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // repeatbox
+            // 
+            this.repeatbox.Location = new System.Drawing.Point(243, 429);
+            this.repeatbox.Name = "repeatbox";
+            this.repeatbox.Size = new System.Drawing.Size(36, 20);
+            this.repeatbox.TabIndex = 54;
+            this.repeatbox.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(162, 431);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(75, 13);
+            this.label3.TabIndex = 55;
+            this.label3.Text = "Repeat Delay:";
+            // 
+            // led1
+            // 
+            this.led1.BackColor = System.Drawing.Color.DeepSkyBlue;
+            this.led1.InitialImage = null;
+            this.led1.Location = new System.Drawing.Point(128, 311);
+            this.led1.Margin = new System.Windows.Forms.Padding(0);
+            this.led1.Name = "led1";
+            this.led1.Size = new System.Drawing.Size(8, 8);
+            this.led1.TabIndex = 57;
+            this.led1.TabStop = false;
+            this.led1.Click += new System.EventHandler(this.led1_Click);
+            // 
+            // led2
+            // 
+            this.led2.BackColor = System.Drawing.SystemColors.Control;
+            this.led2.InitialImage = null;
+            this.led2.Location = new System.Drawing.Point(141, 311);
+            this.led2.Margin = new System.Windows.Forms.Padding(0);
+            this.led2.Name = "led2";
+            this.led2.Size = new System.Drawing.Size(8, 8);
+            this.led2.TabIndex = 58;
+            this.led2.TabStop = false;
+            this.led2.Click += new System.EventHandler(this.led2_Click);
+            // 
+            // led3
+            // 
+            this.led3.BackColor = System.Drawing.SystemColors.Control;
+            this.led3.InitialImage = null;
+            this.led3.Location = new System.Drawing.Point(156, 311);
+            this.led3.Margin = new System.Windows.Forms.Padding(0);
+            this.led3.Name = "led3";
+            this.led3.Size = new System.Drawing.Size(8, 8);
+            this.led3.TabIndex = 59;
+            this.led3.TabStop = false;
+            this.led3.Click += new System.EventHandler(this.led3_Click);
+            // 
+            // led4
+            // 
+            this.led4.BackColor = System.Drawing.SystemColors.Control;
+            this.led4.InitialImage = null;
+            this.led4.Location = new System.Drawing.Point(170, 311);
+            this.led4.Margin = new System.Windows.Forms.Padding(0);
+            this.led4.Name = "led4";
+            this.led4.Size = new System.Drawing.Size(8, 8);
+            this.led4.TabIndex = 60;
+            this.led4.TabStop = false;
+            this.led4.Click += new System.EventHandler(this.led4_Click);
             // 
             // Form1
             // 
@@ -598,6 +686,12 @@ namespace wiimoteremote
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 505);
+            this.Controls.Add(this.led4);
+            this.Controls.Add(this.led3);
+            this.Controls.Add(this.led2);
+            this.Controls.Add(this.led1);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.repeatbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.traycheck);
             this.Controls.Add(this.shiftlabel);
@@ -657,6 +751,11 @@ namespace wiimoteremote
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.speedbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.repeatbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.led4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -716,6 +815,13 @@ namespace wiimoteremote
         private System.Windows.Forms.CheckBox traycheck;
         private System.Windows.Forms.NotifyIcon tray;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem startminimized;
+        private System.Windows.Forms.NumericUpDown repeatbox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox led1;
+        private System.Windows.Forms.PictureBox led2;
+        private System.Windows.Forms.PictureBox led3;
+        private System.Windows.Forms.PictureBox led4;
 
 
     }
