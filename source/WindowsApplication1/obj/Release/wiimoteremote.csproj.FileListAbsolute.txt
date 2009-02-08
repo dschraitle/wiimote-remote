@@ -1,0 +1,17 @@
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\bin\Release\WiimoteRemote.exe.config
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\Interop.Microsoft.Office.Core.dll
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\wiimoteremote.csproj.ResolveComReference.cache
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\bin\Release\WiimoteRemote.exe.manifest
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\bin\Release\WiimoteRemote.application
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\bin\Release\WiimoteRemote.exe
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\bin\Release\WiimoteRemote.pdb
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\bin\Release\Interop.Microsoft.Office.Core.dll
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\ResolveAssemblyReference.cache
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\wiimoteremote.Form1.resources
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\wiimoteremote.Properties.Resources.resources
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\wiimoteremote.csproj.GenerateResource.Cache
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\WiimoteRemote.TrustInfo.xml
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\WiimoteRemote.exe.manifest
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\WiimoteRemote.application
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\WiimoteRemote.exe
+F:\Backup\My_Documents\Projects\wiimoteremote\WindowsApplication1\obj\Release\WiimoteRemote.pdb
