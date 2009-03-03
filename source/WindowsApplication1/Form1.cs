@@ -606,13 +606,28 @@ namespace wiimoteremote
         void translate(string i, bool down, int button, int map)
         {
             if (i == "Ctrl") {   //Ctrl
-                if (down) { keybd_event(VK_CONTROL, 0x45, 0, 0); done[button] = true; }
+                if (down)
+                {
+                    keybd_event(VK_CONTROL, 0x45, 0, 0); 
+                    done[button] = true;
+                    maps[map].repeat[button].turnoff();
+                }
                 else { keybd_event(VK_CONTROL, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
             if (i == "Alt"){    //Alt
-                if (down){ keybd_event(VK_MENU, 0x45, 0, 0);done[button] = true;}
+                if (down)
+                {
+                    keybd_event(VK_MENU, 0x45, 0, 0); 
+                    done[button] = true;
+                    maps[map].repeat[button].turnoff();
+                }
                 else {keybd_event(VK_MENU, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
             if (i == "Shift"){    //Shift
-                if (down) {keybd_event(VK_SHIFT, 0x45, 0, 0);done[button] = true;}
+                if (down)
+                {
+                    keybd_event(VK_SHIFT, 0x45, 0, 0); 
+                    done[button] = true;
+                    maps[map].repeat[button].turnoff();
+                }
                 else {keybd_event(VK_SHIFT, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
             if (i == "Tab"){    //Tab
                 if (down){ keybd_event(VK_TAB, 0x45, 0, 0);done[button] = true;}
@@ -654,7 +669,12 @@ namespace wiimoteremote
                 if (down){ keybd_event(VK_INS, 0x45, 0, 0);done[button] = true;}
                 else {keybd_event(VK_INS, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
             if (i == "PrtScrn"){   //printscreen
-                if (down){ keybd_event(VK_SNAPSHOT, 0x45, 0, 0);done[button] = true;}
+                if (down)
+                {
+                    keybd_event(VK_SNAPSHOT, 0x45, 0, 0); 
+                    done[button] = true;
+                    maps[map].repeat[button].turnoff();
+                }
                 else {keybd_event(VK_SNAPSHOT, 0x45, KEYEVENTF_KEYUP, 0); done[button] = false; }}
             if (i == "Backspace"){   //backspace
                 if (down){ keybd_event(VK_BACK, 0x45, 0, 0);done[button] = true;}
