@@ -307,14 +307,14 @@ namespace wiimoteremote
             // defaultToolStripMenuItem
             // 
             this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
-            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.defaultToolStripMenuItem.Text = "Default";
             this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
             // 
             // gomPlayerToolStripMenuItem
             // 
             this.gomPlayerToolStripMenuItem.Name = "gomPlayerToolStripMenuItem";
-            this.gomPlayerToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
+            this.gomPlayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.gomPlayerToolStripMenuItem.Text = "GomPlayer";
             this.gomPlayerToolStripMenuItem.Click += new System.EventHandler(this.gomPlayerToolStripMenuItem_Click);
             // 
@@ -464,7 +464,7 @@ namespace wiimoteremote
             this.tb1.Location = new System.Drawing.Point(5, 337);
             this.tb1.Name = "tb1";
             this.tb1.Size = new System.Drawing.Size(100, 20);
-            this.tb1.TabIndex = 38;
+            this.tb1.TabIndex = 5;
             // 
             // lblBattery
             // 

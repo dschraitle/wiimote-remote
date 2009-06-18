@@ -329,202 +329,211 @@ namespace wiimoteremote
         /// <param name="args"></param>
         void wm_WiimoteChanged(object sender, WiimoteChangedEventArgs args)
         {//add check for if wiimote gets disconnected
-            mut.WaitOne();
-            WiimoteState ws = args.WiimoteState;
-            if (remotemouse)
+            try
             {
-                double doublex = Math.Round(Convert.ToDouble(ws.AccelState.Values.X * (int)speedbox.Value), 0);
-                double doubley = Math.Round(Convert.ToDouble(ws.AccelState.Values.Y * -1 * (int)speedbox.Value), 0);
-                int X = int.Parse(doublex.ToString());
-                int Y = int.Parse(doubley.ToString());
-                if (ws.AccelState.Values.Y < .012 && ws.AccelState.Values.Y > -.012)
-                    Y = 0;
-                if (ws.AccelState.Values.X < .012 && ws.AccelState.Values.X > -.012)
-                    X = 0;
-                Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y - Y);
-            }
+                mut.WaitOne();
+                WiimoteState ws = args.WiimoteState;
+                if (remotemouse)
+                {
+                    double doublex = Math.Round(Convert.ToDouble(ws.AccelState.Values.X * (int)speedbox.Value), 0);
+                    double doubley = Math.Round(Convert.ToDouble(ws.AccelState.Values.Y * -1 * (int)speedbox.Value), 0);
+                    int X = int.Parse(doublex.ToString());
+                    int Y = int.Parse(doubley.ToString());
+                    if (ws.AccelState.Values.Y < .012 && ws.AccelState.Values.Y > -.012)
+                        Y = 0;
+                    if (ws.AccelState.Values.X < .012 && ws.AccelState.Values.X > -.012)
+                        X = 0;
+                    Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y - Y);
+                }
 
-            if (mouse)
-            {
-                double doublex = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.X * (int)speedbox.Value), 0);
-                double doubley = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.Y * -1 * (int)speedbox.Value), 0);
-                int X = int.Parse(doublex.ToString());
-                int Y = int.Parse(doubley.ToString());
-                if (ws.NunchukState.Joystick.Y < .012 && ws.NunchukState.Joystick.Y > -.012)
-                    Y = 0;
-                if (ws.NunchukState.Joystick.X < .012 && ws.NunchukState.Joystick.X > -.012)
-                    X = 0;
-                Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y + Y);
+                if (mouse)
+                {
+                    double doublex = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.X * (int)speedbox.Value), 0);
+                    double doubley = Math.Round(Convert.ToDouble(ws.NunchukState.Joystick.Y * -1 * (int)speedbox.Value), 0);
+                    int X = int.Parse(doublex.ToString());
+                    int Y = int.Parse(doubley.ToString());
+                    if (ws.NunchukState.Joystick.Y < .012 && ws.NunchukState.Joystick.Y > -.012)
+                        Y = 0;
+                    if (ws.NunchukState.Joystick.X < .012 && ws.NunchukState.Joystick.X > -.012)
+                        X = 0;
+                    Cursor.Position = new System.Drawing.Point(Cursor.Position.X + X, Cursor.Position.Y + Y);
+
+                    if (shifted)
+                    {
+                        if (ws.NunchukState.C && !done[11]) initialdown(11, 1);
+                        if (ws.NunchukState.Z && !done[12]) initialdown(12, 1);
+                        if (ws.NunchukState.C && done[11]) repeatable(11, 1);
+                        if (ws.NunchukState.Z && done[12]) repeatable(12, 1);
+                        if (!ws.NunchukState.C && done[11]) buttonup(11, 1);
+                        if (!ws.NunchukState.Z && done[12]) buttonup(12, 1);
+                    }
+                    else
+                    {
+                        if (!lastWiiState.NunchukState.C && ws.NunchukState.C && !shifted)
+                            initialdown(11, 0);
+                        if (lastWiiState.NunchukState.C && ws.NunchukState.C)
+                            repeatable(11, 0);
+
+                        if (!lastWiiState.NunchukState.Z && ws.NunchukState.Z && !shifted)
+                            initialdown(12, 0);
+                        if (lastWiiState.NunchukState.Z && ws.NunchukState.Z)
+                            repeatable(12, 0);
+                    }
+
+                    if (lastWiiState.NunchukState.C && !ws.NunchukState.C)
+                        buttonup(11, 0);
+                    if (lastWiiState.NunchukState.Z && !ws.NunchukState.Z)
+                        buttonup(12, 0);
+                    lastWiiState.NunchukState.C = ws.NunchukState.C;
+                    lastWiiState.NunchukState.Z = ws.NunchukState.Z;
+                }
 
                 if (shifted)
                 {
-                    if (ws.NunchukState.C && !done[11]) initialdown(11, 1);
-                    if (ws.NunchukState.Z && !done[12]) initialdown(12, 1);
-                    if (ws.NunchukState.C && done[11]) repeatable(11, 1);
-                    if (ws.NunchukState.Z && done[12]) repeatable(12, 1);
-                    if (!ws.NunchukState.C && done[11]) buttonup(11, 1);
-                    if (!ws.NunchukState.Z && done[12]) buttonup(12, 1);
+                    if (ws.ButtonState.A && !done[0]) initialdown(0, 1);
+                    if (ws.ButtonState.B && !done[1]) initialdown(1, 1);
+                    if (ws.ButtonState.Up && !done[2]) initialdown(2, 1);
+                    if (ws.ButtonState.Down && !done[3]) initialdown(3, 1);
+                    if (ws.ButtonState.Left && !done[4]) initialdown(4, 1);
+                    if (ws.ButtonState.Right && !done[5]) initialdown(5, 1);
+                    if (ws.ButtonState.Home && !done[6]) initialdown(6, 1);
+                    if (ws.ButtonState.Minus && !done[7]) initialdown(7, 1);
+                    if (ws.ButtonState.Plus && !done[8]) initialdown(8, 1);
+                    if (ws.ButtonState.One && !done[9]) initialdown(9, 1);
+                    if (ws.ButtonState.Two && !done[10]) initialdown(10, 1);
+                    if (ws.ButtonState.A && done[0]) repeatable(0, 1);
+                    if (ws.ButtonState.B && done[1]) repeatable(1, 1);
+                    if (ws.ButtonState.Up && done[2]) repeatable(2, 1);
+                    if (ws.ButtonState.Down && done[3]) repeatable(3, 1);
+                    if (ws.ButtonState.Left && done[4]) repeatable(4, 1);
+                    if (ws.ButtonState.Right && done[5]) repeatable(5, 1);
+                    if (ws.ButtonState.Home && done[6]) repeatable(6, 1);
+                    if (ws.ButtonState.Minus && done[7]) repeatable(7, 1);
+                    if (ws.ButtonState.Plus && done[8]) repeatable(8, 1);
+                    if (ws.ButtonState.One && done[9]) repeatable(9, 1);
+                    if (ws.ButtonState.Two && done[10]) repeatable(10, 1);
+                    if (!ws.ButtonState.A && done[0]) buttonup(0, 1);
+                    if (!ws.ButtonState.B && done[1]) buttonup(1, 1);
+                    if (!ws.ButtonState.Up && done[2]) buttonup(2, 1);
+                    if (!ws.ButtonState.Down && done[3]) buttonup(3, 1);
+                    if (!ws.ButtonState.Left && done[4]) buttonup(4, 1);
+                    if (!ws.ButtonState.Right && done[5]) buttonup(5, 1);
+                    if (!ws.ButtonState.Home && done[6]) buttonup(6, 1);
+                    if (!ws.ButtonState.Minus && done[7]) buttonup(7, 1);
+                    if (!ws.ButtonState.Plus && done[8]) buttonup(8, 1);
+                    if (!ws.ButtonState.One && done[9]) buttonup(9, 1);
+                    if (!ws.ButtonState.Two && done[10]) buttonup(10, 1);
                 }
                 else
                 {
-                    if (!lastWiiState.NunchukState.C && ws.NunchukState.C && !shifted)
-                        initialdown(11, 0);
-                    if (lastWiiState.NunchukState.C && ws.NunchukState.C)
-                        repeatable(11, 0);
+                    if (!lastWiiState.ButtonState.A && ws.ButtonState.A && !shifted)
+                        initialdown(0, 0);
+                    if (lastWiiState.ButtonState.A && ws.ButtonState.A && !shifted)
+                        repeatable(0, 0);
 
-                    if (!lastWiiState.NunchukState.Z && ws.NunchukState.Z && !shifted)
-                        initialdown(12, 0);
-                    if (lastWiiState.NunchukState.Z && ws.NunchukState.Z)
-                        repeatable(12, 0);
+                    if (!lastWiiState.ButtonState.B && ws.ButtonState.B && !shifted)
+                        initialdown(1, 0);
+                    if (lastWiiState.ButtonState.B && ws.ButtonState.B && !shifted)
+                        repeatable(1, 0);
+
+                    if (!lastWiiState.ButtonState.Up && ws.ButtonState.Up && !shifted)
+                        initialdown(2, 0);
+                    if (lastWiiState.ButtonState.Up && ws.ButtonState.Up && !shifted)
+                        repeatable(2, 0);
+
+                    if (!lastWiiState.ButtonState.Down && ws.ButtonState.Down && !shifted)
+                        initialdown(3, 0);
+                    if (lastWiiState.ButtonState.Down && ws.ButtonState.Down && !shifted)
+                        repeatable(3, 0);
+
+                    if (!lastWiiState.ButtonState.Left && ws.ButtonState.Left && !shifted)
+                        initialdown(4, 0);
+                    if (lastWiiState.ButtonState.Left && ws.ButtonState.Left && !shifted)
+                        repeatable(4, 0);
+
+                    if (!lastWiiState.ButtonState.Right && ws.ButtonState.Right && !shifted)
+                        initialdown(5, 0);
+                    if (lastWiiState.ButtonState.Right && ws.ButtonState.Right && !shifted)
+                        repeatable(5, 0);
+
+                    if (!lastWiiState.ButtonState.Home && ws.ButtonState.Home && !shifted)
+                        initialdown(6, 0);
+                    if (lastWiiState.ButtonState.Home && ws.ButtonState.Home && !shifted)
+                        repeatable(6, 0);
+
+                    if (!lastWiiState.ButtonState.Minus && ws.ButtonState.Minus && !shifted)
+                        initialdown(7, 0);
+                    if (lastWiiState.ButtonState.Minus && ws.ButtonState.Minus && !shifted)
+                        repeatable(7, 0);
+
+                    if (!lastWiiState.ButtonState.Plus && ws.ButtonState.Plus && !shifted)
+                        initialdown(8, 0);
+                    if (lastWiiState.ButtonState.Plus && ws.ButtonState.Plus && !shifted)
+                        repeatable(8, 0);
+
+                    if (!lastWiiState.ButtonState.One && ws.ButtonState.One && !shifted)
+                        initialdown(9, 0);
+                    if (lastWiiState.ButtonState.One && ws.ButtonState.One && !shifted)
+                        repeatable(9, 0);
+                    if (lastWiiState.ButtonState.One && !ws.ButtonState.One)
+                        buttonup(9, 0);
+
+                    if (!lastWiiState.ButtonState.Two && ws.ButtonState.Two && !shifted)
+                        initialdown(10, 0);
+                    if (lastWiiState.ButtonState.Two && ws.ButtonState.Two && !shifted)
+                        repeatable(10, 0);
+                }
+                if (lastWiiState.ButtonState.A && !ws.ButtonState.A)
+                    buttonup(0, 0);
+                if (lastWiiState.ButtonState.B && !ws.ButtonState.B)
+                    buttonup(1, 0);
+                if (lastWiiState.ButtonState.Up && !ws.ButtonState.Up)
+                    buttonup(2, 0);
+                if (lastWiiState.ButtonState.Down && !ws.ButtonState.Down)
+                    buttonup(3, 0);
+                if (lastWiiState.ButtonState.Left && !ws.ButtonState.Left)
+                    buttonup(4, 0);
+                if (lastWiiState.ButtonState.Right && !ws.ButtonState.Right)
+                    buttonup(5, 0);
+                if (lastWiiState.ButtonState.Home && !ws.ButtonState.Home)
+                    buttonup(6, 0);
+                if (lastWiiState.ButtonState.Minus && !ws.ButtonState.Minus)
+                    buttonup(7, 0);
+                if (lastWiiState.ButtonState.Plus && !ws.ButtonState.Plus)
+                    buttonup(8, 0);
+                if (lastWiiState.ButtonState.Two && !ws.ButtonState.Two)
+                    buttonup(10, 0);
+
+                lastWiiState.ButtonState.A = ws.ButtonState.A;
+                lastWiiState.ButtonState.B = ws.ButtonState.B;
+                lastWiiState.ButtonState.Up = ws.ButtonState.Up;
+                lastWiiState.ButtonState.Down = ws.ButtonState.Down;
+                lastWiiState.ButtonState.Left = ws.ButtonState.Left;
+                lastWiiState.ButtonState.Right = ws.ButtonState.Right;
+                lastWiiState.ButtonState.Home = ws.ButtonState.Home;
+                lastWiiState.ButtonState.Minus = ws.ButtonState.Minus;
+                lastWiiState.ButtonState.Plus = ws.ButtonState.Plus;
+                lastWiiState.ButtonState.One = ws.ButtonState.One;
+                lastWiiState.ButtonState.Two = ws.ButtonState.Two;
+
+                if (prevshift != shifted)
+                {
+                    resetalldelays();
+                    prevshift = shifted;
                 }
 
-                if (lastWiiState.NunchukState.C && !ws.NunchukState.C)
-                    buttonup(11, 0);
-                if (lastWiiState.NunchukState.Z && !ws.NunchukState.Z)
-                    buttonup(12, 0);
-                lastWiiState.NunchukState.C = ws.NunchukState.C;
-                lastWiiState.NunchukState.Z = ws.NunchukState.Z;
-            }
+                float f = (((100.0f * 48.0f * (float)(ws.Battery / 48.0f))) / 192.0f);
+                lblBattery.Text = f.ToString("F");
+                pbBattery.Value = (int)f;
 
-            if (shifted)
+                mut.ReleaseMutex();
+            }
+            catch (WiimoteException e)
             {
-                if (ws.ButtonState.A && !done[0]) initialdown(0, 1);
-                if (ws.ButtonState.B && !done[1]) initialdown(1, 1);
-                if (ws.ButtonState.Up && !done[2]) initialdown(2, 1);
-                if (ws.ButtonState.Down && !done[3]) initialdown(3, 1);
-                if (ws.ButtonState.Left && !done[4]) initialdown(4, 1);
-                if (ws.ButtonState.Right && !done[5]) initialdown(5, 1);
-                if (ws.ButtonState.Home && !done[6]) initialdown(6, 1);
-                if (ws.ButtonState.Minus && !done[7]) initialdown(7, 1);
-                if (ws.ButtonState.Plus && !done[8]) initialdown(8, 1);
-                if (ws.ButtonState.One && !done[9]) initialdown(9, 1);
-                if (ws.ButtonState.Two && !done[10]) initialdown(10, 1);
-                if (ws.ButtonState.A && done[0]) repeatable(0, 1);
-                if (ws.ButtonState.B && done[1]) repeatable(1, 1);
-                if (ws.ButtonState.Up && done[2]) repeatable(2, 1);
-                if (ws.ButtonState.Down && done[3]) repeatable(3, 1);
-                if (ws.ButtonState.Left && done[4]) repeatable(4, 1);
-                if (ws.ButtonState.Right && done[5]) repeatable(5, 1);
-                if (ws.ButtonState.Home && done[6]) repeatable(6, 1);
-                if (ws.ButtonState.Minus && done[7]) repeatable(7, 1);
-                if (ws.ButtonState.Plus && done[8]) repeatable(8, 1);
-                if (ws.ButtonState.One && done[9]) repeatable(9, 1);
-                if (ws.ButtonState.Two && done[10]) repeatable(10, 1);
-                if (!ws.ButtonState.A && done[0]) buttonup(0, 1);
-                if (!ws.ButtonState.B && done[1]) buttonup(1, 1);
-                if (!ws.ButtonState.Up && done[2]) buttonup(2, 1);
-                if (!ws.ButtonState.Down && done[3]) buttonup(3, 1);
-                if (!ws.ButtonState.Left && done[4]) buttonup(4, 1);
-                if (!ws.ButtonState.Right && done[5]) buttonup(5, 1);
-                if (!ws.ButtonState.Home && done[6]) buttonup(6, 1);
-                if (!ws.ButtonState.Minus && done[7]) buttonup(7, 1);
-                if (!ws.ButtonState.Plus && done[8]) buttonup(8, 1);
-                if (!ws.ButtonState.One && done[9]) buttonup(9, 1);
-                if (!ws.ButtonState.Two && done[10]) buttonup(10, 1);
+                e.ToString();
+                connectbox.Text = "not connected";
+                connectbutton.Enabled = true;
             }
-            else
-            {
-                if (!lastWiiState.ButtonState.A && ws.ButtonState.A && !shifted)
-                    initialdown(0, 0);
-                if (lastWiiState.ButtonState.A && ws.ButtonState.A && !shifted)
-                    repeatable(0, 0);
-
-                if (!lastWiiState.ButtonState.B && ws.ButtonState.B && !shifted)
-                    initialdown(1, 0);
-                if (lastWiiState.ButtonState.B && ws.ButtonState.B && !shifted)
-                    repeatable(1, 0);
-
-                if (!lastWiiState.ButtonState.Up && ws.ButtonState.Up && !shifted)
-                    initialdown(2, 0);
-                if (lastWiiState.ButtonState.Up && ws.ButtonState.Up && !shifted)
-                    repeatable(2, 0);
-
-                if (!lastWiiState.ButtonState.Down && ws.ButtonState.Down && !shifted)
-                    initialdown(3, 0);
-                if (lastWiiState.ButtonState.Down && ws.ButtonState.Down && !shifted)
-                    repeatable(3, 0);
-
-                if (!lastWiiState.ButtonState.Left && ws.ButtonState.Left && !shifted)
-                    initialdown(4, 0);
-                if (lastWiiState.ButtonState.Left && ws.ButtonState.Left && !shifted)
-                    repeatable(4, 0);
-
-                if (!lastWiiState.ButtonState.Right && ws.ButtonState.Right && !shifted)
-                    initialdown(5, 0);
-                if (lastWiiState.ButtonState.Right && ws.ButtonState.Right && !shifted)
-                    repeatable(5, 0);
-
-                if (!lastWiiState.ButtonState.Home && ws.ButtonState.Home && !shifted)
-                    initialdown(6, 0);
-                if (lastWiiState.ButtonState.Home && ws.ButtonState.Home && !shifted)
-                    repeatable(6, 0);
-
-                if (!lastWiiState.ButtonState.Minus && ws.ButtonState.Minus && !shifted)
-                    initialdown(7, 0);
-                if (lastWiiState.ButtonState.Minus && ws.ButtonState.Minus && !shifted)
-                    repeatable(7, 0);
-
-                if (!lastWiiState.ButtonState.Plus && ws.ButtonState.Plus && !shifted)
-                    initialdown(8, 0);
-                if (lastWiiState.ButtonState.Plus && ws.ButtonState.Plus && !shifted)
-                    repeatable(8, 0);
-
-                if (!lastWiiState.ButtonState.One && ws.ButtonState.One && !shifted)
-                    initialdown(9, 0);
-                if (lastWiiState.ButtonState.One && ws.ButtonState.One && !shifted)
-                    repeatable(9, 0);
-                if (lastWiiState.ButtonState.One && !ws.ButtonState.One)
-                    buttonup(9, 0);
-
-                if (!lastWiiState.ButtonState.Two && ws.ButtonState.Two && !shifted)
-                    initialdown(10, 0);
-                if (lastWiiState.ButtonState.Two && ws.ButtonState.Two && !shifted)
-                    repeatable(10, 0);
-            }
-            if (lastWiiState.ButtonState.A && !ws.ButtonState.A)
-                buttonup(0, 0);
-            if (lastWiiState.ButtonState.B && !ws.ButtonState.B)
-                buttonup(1, 0);
-            if (lastWiiState.ButtonState.Up && !ws.ButtonState.Up)
-                buttonup(2, 0);
-            if (lastWiiState.ButtonState.Down && !ws.ButtonState.Down)
-                buttonup(3, 0);
-            if (lastWiiState.ButtonState.Left && !ws.ButtonState.Left)
-                buttonup(4, 0);
-            if (lastWiiState.ButtonState.Right && !ws.ButtonState.Right)
-                buttonup(5, 0);
-            if (lastWiiState.ButtonState.Home && !ws.ButtonState.Home)
-                buttonup(6, 0);
-            if (lastWiiState.ButtonState.Minus && !ws.ButtonState.Minus)
-                buttonup(7, 0);
-            if (lastWiiState.ButtonState.Plus && !ws.ButtonState.Plus)
-                buttonup(8, 0);
-            if (lastWiiState.ButtonState.Two && !ws.ButtonState.Two)
-                buttonup(10, 0);
-
-            lastWiiState.ButtonState.A = ws.ButtonState.A;
-            lastWiiState.ButtonState.B = ws.ButtonState.B;
-            lastWiiState.ButtonState.Up = ws.ButtonState.Up;
-            lastWiiState.ButtonState.Down = ws.ButtonState.Down;
-            lastWiiState.ButtonState.Left = ws.ButtonState.Left;
-            lastWiiState.ButtonState.Right = ws.ButtonState.Right;
-            lastWiiState.ButtonState.Home = ws.ButtonState.Home;
-            lastWiiState.ButtonState.Minus = ws.ButtonState.Minus;
-            lastWiiState.ButtonState.Plus = ws.ButtonState.Plus;
-            lastWiiState.ButtonState.One = ws.ButtonState.One;
-            lastWiiState.ButtonState.Two = ws.ButtonState.Two;
-
-            if (prevshift != shifted)
-            {
-                resetalldelays();
-                prevshift = shifted;
-            }
-
-            float f = (((100.0f * 48.0f * (float)(ws.Battery / 48.0f))) / 192.0f);
-            lblBattery.Text = f.ToString("F");
-            pbBattery.Value = (int)f;
-
-            mut.ReleaseMutex(); 
         }
 
         void resetalldelays()

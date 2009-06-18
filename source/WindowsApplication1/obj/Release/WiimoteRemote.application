@@ -11,7 +11,11 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+<<<<<<< .mine
+        <dsig:DigestValue>blGN67ebFcqN7zdFMSuCFshpHes=</dsig:DigestValue>
+=======
         <dsig:DigestValue>MoG4LqyW0IitRW5lco18L9lScj0=</dsig:DigestValue>
+>>>>>>> .r33
       </hash>
     </dependentAssembly>
   </dependency>

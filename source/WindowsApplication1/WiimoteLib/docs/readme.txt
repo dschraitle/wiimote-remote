@@ -1,5 +1,5 @@
 Managed Library for Nintendo's Wiimote
-v1.5.2.0
+v1.7.0.0
 by Brian Peek (http://www.brianpeek.com/)
 
 For more information, please visit the associated article for this project at:
@@ -13,10 +13,38 @@ If all else fails, please contact me at the address above.  Enjoy!
 Changes
 =======
 
+v1.7.0.0
+--------
+	o Writing registers is now properly waiting for the Wiimote to reply
+	  before continuing...this removes all of the Thread.Sleep() calls and
+	  should *greatly* improve performance when setting LEDs and rumble
+	  (Serial Nightmare & wwibrew.org)
+	o Guitar Hero: World Tour Guitar and Drums now properly recognized and
+	  used (wiibrew.org, tested by Tyler Tolley and Mauro Milazzo)
+	o Guitar whammy bar is now a 5-bit value instead of 4 (wiibrew.org)
+	o Position of 4 IRs now properly reported in Basic reporting mode
+	  (Dan Carter)
+	o Found1/2 now properly reported in MSRS (reported by akka243)
+	o MSRS project updated to Microsoft Robotics Developer Studio 2008
+
+v1.6.0.0
+--------
+	o Added "center of gravity" calculation to the Wii Fit Balance Board
+	  (thanks to Steven Battersby)
+	o Structs are now marked [Serializable] (suggested by Caio)
+	o Battery property is now a float containing the calculated percentage
+	  of battery remaining
+	o BatteryRaw is the byte value that used to be stored in the Battery
+	  property
+	o WiimoteTest app now reads extensions properly when inserted at startup
+	o Exposed HID device path in new HIDDevicePath property on Wiimote object
+	o Changed the time delay on writes to 50ms from 100ms...this should
+	  improve responsiveness of setting LEDs and rumble
+
 v1.5.2.0
 --------
 	o Ok, Balance Board support is *really* fixed this time
-	  (thanks to Manuel Schroeder and Alex Wilkinson for testing)
+	  (thanks to Manuel Schroeder, Eduard Kujit and Alex Wilkinson for testing)
 	o LED checkboxes are properly set on the WiimoteTest tabs
 
 v1.5.1.0

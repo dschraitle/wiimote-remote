@@ -57,14 +57,18 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="112640">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="WiimoteRemote.exe" size="115712">
       <assemblyIdentity name="WiimoteRemote" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+<<<<<<< .mine
+        <dsig:DigestValue>7K4B7VTTzf8nBgpWeL2uBKI6aY0=</dsig:DigestValue>
+=======
         <dsig:DigestValue>Bt1ye/uVwV5JcY/ebKBQ3mSBrBA=</dsig:DigestValue>
+>>>>>>> .r33
       </hash>
     </dependentAssembly>
   </dependency>
@@ -77,13 +81,13 @@
       <dsig:DigestValue>V5ZcK3UjGD1UchcF4SOVR9Tl4Sg=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="WiimoteLib\docs\copyright.txt" size="226">
+  <file name="WiimoteLib\docs\copyright.txt" size="224">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>K7Is9ar9LLn11qJ35lRFIJlv0fA=</dsig:DigestValue>
+      <dsig:DigestValue>mXtScNj3ANoe1XfvgYKG0Woe7XA=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WiimoteLib\docs\license.txt" size="2692">
@@ -95,13 +99,13 @@
       <dsig:DigestValue>l9JWb9rPZ10mralxWf8q0GtU2Rk=</dsig:DigestValue>
     </hash>
   </file>
-  <file name="WiimoteLib\docs\readme.txt" size="4534">
+  <file name="WiimoteLib\docs\readme.txt" size="5893">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>RCPVthRLp+Y/HZSfJzFHUR8AifQ=</dsig:DigestValue>
+      <dsig:DigestValue>nHGkPPzvUcqfzR7+4m0oiPhWi0g=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WiimoteLib\WiimoteLib.csproj" size="7500">
@@ -110,7 +114,7 @@
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>aUmuGkjzfOltSX28TURyksu67uY=</dsig:DigestValue>
+      <dsig:DigestValue>mvUHyf1M8pgv+KMdMa7xpeIv34g=</dsig:DigestValue>
     </hash>
   </file>
   <file name="WiimoteRemote.exe.config" size="74">
