@@ -43,11 +43,6 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
-      <assemblyIdentity name="office" version="12.0.0.0" publicKeyToken="71E9BCE111E9429C" language="neutral" />
-    </dependentAssembly>
-  </dependency>
-  <dependency>
-    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
       <assemblyIdentity name="System.Core" version="3.5.0.0" publicKeyToken="b77a5c561934e089" language="neutral" processorArchitecture="msil" />
     </dependentAssembly>
   </dependency>
@@ -64,11 +59,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-<<<<<<< .mine
-        <dsig:DigestValue>7K4B7VTTzf8nBgpWeL2uBKI6aY0=</dsig:DigestValue>
-=======
-        <dsig:DigestValue>Bt1ye/uVwV5JcY/ebKBQ3mSBrBA=</dsig:DigestValue>
->>>>>>> .r33
+        <dsig:DigestValue>vuDI1T2ghIYFC57Wqgbg2YgSMoM=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
