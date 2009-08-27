@@ -256,6 +256,7 @@ namespace wiimoteremote
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             regsave();
+            this.Close();
         }
 
         /// <summary>
