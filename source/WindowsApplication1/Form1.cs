@@ -198,8 +198,8 @@ namespace wiimoteremote
             try
             {
                 RegistryKey ourkey;
-                ourkey = Registry.Users;
-                ourkey = ourkey.OpenSubKey(@".DEFAULT\Software\Schraitle\Remote");
+                ourkey = Registry.CurrentUser;
+                ourkey = ourkey.OpenSubKey(@"Software\Schraitle\Remote");
                 temp = SerializeFromString<buttonmap[]>((string)ourkey.GetValue("maps"));
                 tb1.Text = (string)ourkey.GetValue("custom");
                 speedbox.Value = decimal.Parse((string)ourkey.GetValue("speed"));
@@ -256,7 +256,6 @@ namespace wiimoteremote
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             regsave();
-            this.Close();
         }
 
         /// <summary>
@@ -280,9 +279,9 @@ namespace wiimoteremote
         /// </summary>
         private void regsave()
         {
-            RegistryKey ourkey = Registry.Users;
-            ourkey = ourkey.CreateSubKey(@".DEFAULT\Software\Schraitle\Remote");
-            ourkey.OpenSubKey(@".DEFAULT\Software\Schraitle\Remote", true);
+            RegistryKey ourkey = Registry.CurrentUser;
+            ourkey = ourkey.CreateSubKey(@"Software\Schraitle\Remote");
+            ourkey.OpenSubKey(@"Software\Schraitle\Remote", true);
             ourkey.SetValue("maps", SerializeToString(maps));
             ourkey.SetValue("custom", tb1.Text);
             ourkey.SetValue("speed", speedbox.Value);
