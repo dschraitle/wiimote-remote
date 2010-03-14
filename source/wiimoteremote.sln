@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wiimoteremote", "WindowsApplication1\wiimoteremote.csproj", "{98041AE3-DF1C-42E9-8506-14F286D0932B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wiimoteremote", "WiimoteRemote\wiimoteremote.csproj", "{98041AE3-DF1C-42E9-8506-14F286D0932B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

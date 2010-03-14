@@ -89,6 +89,8 @@ namespace wiimoteremote
             this.led2 = new System.Windows.Forms.PictureBox();
             this.led3 = new System.Windows.Forms.PictureBox();
             this.led4 = new System.Windows.Forms.PictureBox();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -241,7 +243,7 @@ namespace wiimoteremote
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(0, 2, 0, 0);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(303, 19);
+            this.menuStrip1.Size = new System.Drawing.Size(303, 21);
             this.menuStrip1.Stretch = false;
             this.menuStrip1.TabIndex = 23;
             this.menuStrip1.Text = "menuStrip1";
@@ -251,9 +253,11 @@ namespace wiimoteremote
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.save,
             this.load,
-            this.startminimized});
+            this.startminimized,
+            this.toolStripSeparator1,
+            this.aboutToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 17);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 19);
             this.fileToolStripMenuItem.Text = "File";
             this.fileToolStripMenuItem.TextImageRelation = System.Windows.Forms.TextImageRelation.Overlay;
             // 
@@ -301,20 +305,20 @@ namespace wiimoteremote
             this.defaultToolStripMenuItem,
             this.gomPlayerToolStripMenuItem});
             this.presetsToolStripMenuItem.Name = "presetsToolStripMenuItem";
-            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(55, 17);
+            this.presetsToolStripMenuItem.Size = new System.Drawing.Size(56, 19);
             this.presetsToolStripMenuItem.Text = "Presets";
             // 
             // defaultToolStripMenuItem
             // 
             this.defaultToolStripMenuItem.Name = "defaultToolStripMenuItem";
-            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.defaultToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.defaultToolStripMenuItem.Text = "Default";
             this.defaultToolStripMenuItem.Click += new System.EventHandler(this.defaultToolStripMenuItem_Click);
             // 
             // gomPlayerToolStripMenuItem
             // 
             this.gomPlayerToolStripMenuItem.Name = "gomPlayerToolStripMenuItem";
-            this.gomPlayerToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.gomPlayerToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
             this.gomPlayerToolStripMenuItem.Text = "GomPlayer";
             this.gomPlayerToolStripMenuItem.Click += new System.EventHandler(this.gomPlayerToolStripMenuItem_Click);
             // 
@@ -680,6 +684,18 @@ namespace wiimoteremote
             this.led4.TabStop = false;
             this.led4.Click += new System.EventHandler(this.led4_Click);
             // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(154, 6);
+            // 
             // Form1
             // 
             this.AllowDrop = true;
@@ -744,8 +760,8 @@ namespace wiimoteremote
             this.Load += new System.EventHandler(this.Form1_Load);
             this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.homepicture)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -822,6 +838,8 @@ namespace wiimoteremote
         private System.Windows.Forms.PictureBox led2;
         private System.Windows.Forms.PictureBox led3;
         private System.Windows.Forms.PictureBox led4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 
 
     }

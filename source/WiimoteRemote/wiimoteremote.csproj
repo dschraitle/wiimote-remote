@@ -113,6 +113,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="utilities.cs" />
     <Compile Include="WiimoteLib\DataTypes.cs">
       <SubType>Code</SubType>
     </Compile>
