@@ -12,6 +12,8 @@ using System.IO;//for saving the reading the calibration data
 using WiimoteLib;
 using Microsoft.Win32;
 using System.Xml.Serialization;
+using Utilities;
+using System.Collections;
 
 namespace wiimoteremote
 {
@@ -174,6 +176,8 @@ namespace wiimoteremote
         ToolTip label12tip = new ToolTip();
         bool remotemouse = false;
         bool[] leds = new bool[] {true,false,false,false};
+        utilities Utilites = new utilities("WiimoteRemote");
+        buttonmap[] tempLoad = new buttonmap[] { new buttonmap(), new buttonmap() };
 
         public Form1(string[] args)
         {
@@ -193,29 +197,29 @@ namespace wiimoteremote
             
             foreach (ComboBox b in boxes)
                 b.Items.AddRange(items);
+            getSettings();
+            //buttonmap[] temp = new buttonmap[] { new buttonmap(), new buttonmap() };
+            //try
+            //{
+            //    RegistryKey ourkey;
+            //    ourkey = Registry.CurrentUser;
+            //    ourkey = ourkey.OpenSubKey(@"Software\Schraitle\Remote");
+            //    temp = SerializeFromString<buttonmap[]>((string)ourkey.GetValue("maps"));
+            //    tb1.Text = (string)ourkey.GetValue("custom");
+            //    speedbox.Value = decimal.Parse((string)ourkey.GetValue("speed"));
+            //    traycheck.Checked = bool.Parse((string)ourkey.GetValue("tray"));
+            //    startminimized.Checked = bool.Parse((string)ourkey.GetValue("minimize"));
+            //    repeatbox.Value = decimal.Parse((string)ourkey.GetValue("repeat"));
+            //    ourkey.Close();
+            //}
+            //catch (Exception x) { x.ToString(); }
 
-            buttonmap[] temp = new buttonmap[] { new buttonmap(), new buttonmap() };
-            try
-            {
-                RegistryKey ourkey;
-                ourkey = Registry.CurrentUser;
-                ourkey = ourkey.OpenSubKey(@"Software\Schraitle\Remote");
-                temp = SerializeFromString<buttonmap[]>((string)ourkey.GetValue("maps"));
-                tb1.Text = (string)ourkey.GetValue("custom");
-                speedbox.Value = decimal.Parse((string)ourkey.GetValue("speed"));
-                traycheck.Checked = bool.Parse((string)ourkey.GetValue("tray"));
-				startminimized.Checked = bool.Parse((string)ourkey.GetValue("minimize"));
-				repeatbox.Value = decimal.Parse((string)ourkey.GetValue("repeat"));
-                ourkey.Close();
-            }
-            catch (Exception x) { x.ToString(); }
-
-            if (temp[0].indexes.Length <= NUMBOXES) //in case future versions have different numbers of boxes, the serialized objects won't get indexoutofbounds errors
-                replacemap(temp, temp[0].indexes.Length);
-            else if (temp[0].indexes.Length >= NUMBOXES)
-                replacemap(temp, NUMBOXES);
+            if (tempLoad[0].indexes.Length <= NUMBOXES) //in case future versions have different numbers of boxes, the serialized objects won't get indexoutofbounds errors
+                replacemap(tempLoad, tempLoad[0].indexes.Length);
+            else if (tempLoad[0].indexes.Length >= NUMBOXES)
+                replacemap(tempLoad, NUMBOXES);
             else
-                maps = temp;
+                maps = tempLoad;
 
             changestate();
             wm.WiimoteChanged += wm_WiimoteChanged;
@@ -253,6 +257,11 @@ namespace wiimoteremote
 			}
 		}
 
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            regsave();
+        }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             regsave();
@@ -275,11 +284,44 @@ namespace wiimoteremote
         }
 
         /// <summary>
-        /// saves button data to registry
+        /// gets all settings from appdata folder
+        /// </summary>
+        void getSettings()
+        {
+            Hashtable settings = Utilites.getSettings();
+            try
+            {
+                if (settings.Contains("maps"))
+                    tempLoad = SerializeFromString<buttonmap[]>((string)settings["maps"]);
+                if (settings.Contains("custom"))
+                    tb1.Text = (string)settings["custom"];
+                if (settings.Contains("speed"))
+                    speedbox.Value = decimal.Parse((string)settings["speed"]);
+                if (settings.Contains("tray"))
+                    traycheck.Checked = bool.Parse((string)settings["tray"]);
+                if (settings.Contains("minimize"))
+                    startminimized.Checked = bool.Parse((string)settings["minimize"]);
+                if (settings.Contains("repeat"))
+                    repeatbox.Value = decimal.Parse((string)settings["repeat"]);
+            }
+            catch (Exception x) { x.ToString(); }
+        }
+
+        /// <summary>
+        /// saves button data to appdata folder
         /// </summary>
         private void regsave()
         {
-            RegistryKey ourkey = Registry.CurrentUser;
+            Hashtable settings = new Hashtable();
+            settings["maps"] = SerializeToString(maps);
+            settings["custom"] = tb1.Text;
+            settings["speed"] = speedbox.Value;
+            settings["tray"] = traycheck.Checked;
+            settings["minimize"] = startminimized.Checked;
+            settings["repeat"] = repeatbox.Value;
+            Utilites.saveSettings(settings);
+
+            /*RegistryKey ourkey = Registry.CurrentUser;
             ourkey = ourkey.CreateSubKey(@"Software\Schraitle\Remote");
             ourkey.OpenSubKey(@"Software\Schraitle\Remote", true);
             ourkey.SetValue("maps", SerializeToString(maps));
@@ -288,7 +330,7 @@ namespace wiimoteremote
             ourkey.SetValue("tray", traycheck.Checked);
 			ourkey.SetValue("minimize", startminimized.Checked);
 			ourkey.SetValue("repeat", repeatbox.Value);
-            ourkey.Close();
+            ourkey.Close();*/
         }
 
         /// <summary>
@@ -1127,6 +1169,11 @@ namespace wiimoteremote
                 led4.BackColor = Color.DeepSkyBlue;
             leds[3] = !leds[3];
             setledsfromarray();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Schraitle's WiimoteRemote\n" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version + "\n\nrubikscubist@gmail.com");
         }
     }
 }
