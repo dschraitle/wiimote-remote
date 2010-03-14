@@ -1,0 +1,41 @@
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.exe.config
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\Interop.Microsoft.Office.Core.dll
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\wiimoteremote.csproj.ResolveComReference.cache
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.exe
+C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.pdb
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.exe.config
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\Interop.Microsoft.Office.Core.dll
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\wiimoteremote.csproj.ResolveComReference.cache
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.exe
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.pdb
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.exe.manifest
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.application
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.exe
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.pdb
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\Interop.Microsoft.Office.Core.dll
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\wiimoteremote.Form1.resources
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\wiimoteremote.Properties.Resources.resources
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\wiimoteremote.csproj.GenerateResource.Cache
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.exe.manifest
+C:\Documents and Settings\David\My Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.application
+F:\Backup\My_Documents\Projects\wiimoteremote\source\WindowsApplication1\bin\Debug\WiimoteRemote.exe.config
+F:\Backup\My_Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\Interop.Microsoft.Office.Core.dll
+F:\Backup\My_Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\wiimoteremote.csproj.ResolveComReference.cache
+F:\Backup\My_Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.exe
+F:\Backup\My_Documents\Projects\wiimoteremote\source\WindowsApplication1\obj\Debug\WiimoteRemote.pdb
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\bin\Debug\WiimoteRemote.exe.config
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\wiimoteremote.csproj.ResolveComReference.cache
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.exe
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.pdb
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\bin\Debug\WiimoteRemote.exe.manifest
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\bin\Debug\WiimoteRemote.application
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\bin\Debug\WiimoteRemote.exe
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\bin\Debug\WiimoteRemote.pdb
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\wiimoteremote.Form1.resources
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\wiimoteremote.Properties.Resources.resources
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\wiimoteremote.csproj.GenerateResource.Cache
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.TrustInfo.xml
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.exe.manifest
+C:\Users\David\Documents\wiimoteremote\WindowsApplication1\obj\Debug\WiimoteRemote.application

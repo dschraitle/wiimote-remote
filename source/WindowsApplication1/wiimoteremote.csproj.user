@@ -1,0 +1,18 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <RemoteDebugEnabled>false</RemoteDebugEnabled>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PublishUrlHistory>C:\Documents and Settings\David\Desktop\|C:\Documents and Settings\David\My Documents\Visual Studio 2005\Projects\whiteboard\|publish\</PublishUrlHistory>
+    <InstallUrlHistory>
+    </InstallUrlHistory>
+    <SupportUrlHistory>
+    </SupportUrlHistory>
+    <UpdateUrlHistory>
+    </UpdateUrlHistory>
+    <BootstrapperUrlHistory>
+    </BootstrapperUrlHistory>
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+</Project>
